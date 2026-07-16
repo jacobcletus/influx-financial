@@ -1,0 +1,86 @@
+---
+import LegalLayout from '@/layouts/LegalLayout.astro';
+import { site } from '@/data/site';
+---
+
+<LegalLayout
+  title="Privacy Policy | Influx Financial"
+  description="How Influx Financial collects, uses, stores and discloses your personal information, and how to access or correct it."
+  heading="Privacy Policy"
+  path="/privacy-policy"
+  lastUpdated={new Date('2026-07-01')}
+>
+  <p>
+    <strong
+      >[OWNER TO CONFIRM: This is a working draft. Have it reviewed and approved by your compliance
+      adviser or lawyer before launch — privacy obligations for credit assistance providers include
+      specific requirements this draft cannot verify.]</strong
+    >
+  </p>
+  <p>
+    {site.legalName} ("Influx", "we", "us") is committed to protecting your privacy. This policy explains
+    how we collect, use, store and disclose personal information in accordance with the Privacy Act 1988
+    (Cth) and the Australian Privacy Principles.
+  </p>
+
+  <h2>What we collect</h2>
+  <p>
+    Through this website's enquiry forms we collect only the details you provide: your name, contact
+    details, the service you're interested in, and your message. We deliberately do not collect tax
+    file numbers, account numbers, identity documents or other sensitive financial information
+    through website forms.
+  </p>
+  <p>
+    If you become a client, we collect further information needed to provide credit assistance or
+    accounting services — such as identification, income and expense details, assets and liabilities
+    — directly from you and, with your consent, from third parties such as your employer, lenders
+    and credit reporting bodies.
+  </p>
+
+  <h2>How we use it</h2>
+  <ul>
+    <li>To respond to your enquiries and provide our services</li>
+    <li>
+      To assess your situation and provide credit assistance, including submitting applications to
+      lenders with your consent
+    </li>
+    <li>To provide accounting and tax services through OneHQ Accounting, where you engage them</li>
+    <li>To meet our legal and regulatory obligations</li>
+    <li>With your consent, to keep in touch about your loans and reviews</li>
+  </ul>
+
+  <h2>Disclosure</h2>
+  <p>
+    We may disclose your information to lenders and their agents, valuers, insurers, our aggregator
+    [OWNER TO CONFIRM: aggregator name], credit reporting bodies, and professional advisers — only
+    as needed to provide our services or as required by law. We do not sell personal information.
+  </p>
+
+  <h2>Storage and security</h2>
+  <p>
+    Information is stored in access-controlled systems. Website enquiries are transmitted over
+    HTTPS. [OWNER TO CONFIRM: CRM/storage arrangements and whether any data is stored or processed
+    overseas — disclosure of overseas recipients is required.]
+  </p>
+
+  <h2>Access and correction</h2>
+  <p>
+    You may request access to, or correction of, the personal information we hold about you by
+    contacting us at <a href={site.contact.emailHref}>{site.contact.email}</a> or
+    {site.contact.phone}.
+  </p>
+
+  <h2>Complaints</h2>
+  <p>
+    If you believe we have mishandled your information, contact us first — see our
+    <a href="/complaints">complaints process</a>. If unresolved, you can contact the Office of the
+    Australian Information Commissioner (oaic.gov.au).
+  </p>
+
+  <h2>Cookies and analytics</h2>
+  <p>
+    This website uses only essential functionality and, where enabled, privacy-respecting analytics.
+    [OWNER TO CONFIRM: analytics platform in use — update this section to match, and add a consent
+    banner if a platform requiring consent is chosen.]
+  </p>
+</LegalLayout>

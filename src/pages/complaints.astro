@@ -1,0 +1,57 @@
+---
+import LegalLayout from '@/layouts/LegalLayout.astro';
+import { site } from '@/data/site';
+---
+
+<LegalLayout
+  title="Complaints | Influx Financial"
+  description="How to raise a concern with Influx Financial, what happens next, and how to escalate to AFCA if we can't resolve it."
+  heading="Complaints"
+  path="/complaints"
+  lastUpdated={new Date('2026-07-01')}
+>
+  <p>
+    If something hasn't gone the way it should, we want to know about it — directly, and early.
+    Complaints are handled by a director, not routed into a queue.
+  </p>
+
+  <h2>How to raise a concern</h2>
+  <ul>
+    <li>Phone: <a href={site.contact.phoneHref}>{site.contact.phone}</a></li>
+    <li>
+      Email: <a href={site.contact.emailHref}>{site.contact.email}</a> (subject line "Complaint" helps
+      us prioritise it)
+    </li>
+  </ul>
+  <p>Tell us what happened, when, and what outcome would put it right for you.</p>
+
+  <h2>What happens next</h2>
+  <ol>
+    <li>We acknowledge your complaint promptly — typically within one business day.</li>
+    <li>A director investigates and may contact you for further details.</li>
+    <li>
+      We aim to resolve complaints quickly and will provide a written response within the timeframes
+      required by ASIC's dispute-resolution rules (generally no later than 30 days).
+    </li>
+  </ol>
+
+  <h2>If you're not satisfied</h2>
+  <p>
+    If we can't resolve your complaint, or you're unhappy with our response, you can take it to the
+    Australian Financial Complaints Authority (AFCA) — a free, independent external dispute
+    resolution scheme:
+  </p>
+  <ul>
+    <li>Website: afca.org.au</li>
+    <li>Phone: 1800 931 678 (free call)</li>
+    <li>Mail: GPO Box 3, Melbourne VIC 3001</li>
+  </ul>
+  <p>[OWNER TO CONFIRM: AFCA membership number — required before this page goes live.]</p>
+
+  <h2>Privacy-related complaints</h2>
+  <p>
+    Concerns about how we've handled your personal information follow the same process; if
+    unresolved, you can also contact the Office of the Australian Information Commissioner
+    (oaic.gov.au).
+  </p>
+</LegalLayout>

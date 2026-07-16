@@ -1,0 +1,50 @@
+---
+import StructuredData from '@/components/seo/StructuredData.astro';
+import { breadcrumbSchema } from '@/utils/schema';
+
+interface Props {
+  items: Array<{ name: string; href: string }>;
+  class?: string;
+}
+const { items, class: className = '' } = Astro.props;
+const trail = [{ name: 'Home', href: '/' }, ...items];
+---
+
+<nav aria-label="Breadcrumb" class={`text-[0.85rem] ${className}`}>
+  <ol class="flex flex-wrap items-center gap-1.5">
+    {
+      trail.map((item, i) => {
+        const last = i === trail.length - 1;
+        return (
+          <li class="flex items-center gap-1.5">
+            {i > 0 && (
+              <svg
+                width="12"
+                height="12"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                aria-hidden="true"
+                class="opacity-50"
+              >
+                <path d="m9 6 6 6-6 6" />
+              </svg>
+            )}
+            {last ? (
+              <span aria-current="page" class="font-medium opacity-80">
+                {item.name}
+              </span>
+            ) : (
+              <a href={item.href} class="underline-offset-2 hover:underline">
+                {item.name}
+              </a>
+            )}
+          </li>
+        );
+      })
+    }
+  </ol>
+</nav>
+<StructuredData schema={breadcrumbSchema(trail)} />

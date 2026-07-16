@@ -1,0 +1,63 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/navigation/Breadcrumbs.astro';
+import SectionHeader from '@/components/sections/SectionHeader.astro';
+import ArticleCard from '@/components/ui/ArticleCard.astro';
+import ConsultationCTA from '@/components/sections/ConsultationCTA.astro';
+
+const articles = (await getCollection('articles', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf()
+);
+
+const categories = [...new Set(articles.map((a) => a.data.category))];
+---
+
+<BaseLayout
+  title="Resources & Guides — Home Loans, Refinancing, Tax | Influx Financial"
+  description="Plain-English guides on deposits, pre-approval, fixed vs variable rates, refinancing costs, offset accounts and property tax — written and reviewed by the Influx team."
+>
+  <section class="bg-mist-50 bg-texture">
+    <div class="container-site py-14 sm:py-16">
+      <Breadcrumbs items={[{ name: 'Resources', href: '/resources' }]} class="mb-6 text-ink-500" />
+      <SectionHeader
+        as="h1"
+        eyebrow="Resources"
+        heading="Guides that respect your time"
+        lede="Every article is written by the team, dated, reviewed for accuracy, and free of filler. If a topic isn't covered yet, ask us — it probably becomes the next guide."
+      />
+    </div>
+  </section>
+
+  <section class="bg-white">
+    <div class="container-site py-16 sm:py-20">
+      {
+        categories.map((category) => {
+          const items = articles.filter((a) => a.data.category === category);
+          return (
+            <div class="mb-14 last:mb-0">
+              <h2 class="mb-6 text-xl font-bold text-ink-950">{category}</h2>
+              <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+                {items.map((article, i) => (
+                  <ArticleCard
+                    title={article.data.title}
+                    description={article.data.description}
+                    href={`/resources/${article.id}`}
+                    category={article.data.category}
+                    publishDate={article.data.publishDate}
+                    delay={(i % 3) * 60}
+                  />
+                ))}
+              </div>
+            </div>
+          );
+        })
+      }
+    </div>
+  </section>
+
+  <ConsultationCTA
+    heading="Prefer answers about your situation?"
+    body="Guides are general by nature. A free consultation gets you numbers and next steps that are actually yours."
+  />
+</BaseLayout>

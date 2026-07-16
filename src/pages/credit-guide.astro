@@ -1,0 +1,57 @@
+---
+import LegalLayout from '@/layouts/LegalLayout.astro';
+import { site } from '@/data/site';
+---
+
+<LegalLayout
+  title="Credit Guide | Influx Financial"
+  description="The Influx Financial Credit Guide — who we are, how we're paid, our lender panel, and how to raise concerns about our credit assistance."
+  heading="Credit Guide"
+  path="/credit-guide"
+  lastUpdated={new Date('2026-07-01')}
+>
+  <p>
+    <strong>
+      [OWNER TO CONFIRM: A Credit Guide has prescribed content under the National Consumer Credit
+      Protection Act. This page is a structured placeholder — populate it from your licensee's
+      approved Credit Guide template before launch. Do not publish this page with placeholders in
+      place.]
+    </strong>
+  </p>
+
+  <h2>Who provides your credit assistance</h2>
+  <ul>
+    <li>Business: {site.legalName}</li>
+    <li>ABN: [OWNER TO CONFIRM: ABN]</li>
+    <li>
+      Credit licence: [OWNER TO CONFIRM: Australian Credit Licence number, or Credit Representative
+      number and the licensee's name and ACL]
+    </li>
+    <li>Contact: {site.contact.phone} · {site.contact.email}</li>
+  </ul>
+
+  <h2>Our lender panel</h2>
+  <p>
+    [OWNER TO CONFIRM: aggregator name and a statement of the lender panel, including the six
+    lenders with whom you conduct the most business, as required.]
+  </p>
+
+  <h2>How we are paid</h2>
+  <p>
+    [OWNER TO CONFIRM: commission arrangements — upfront and trail commission ranges, any fees
+    payable by the client, and how the client can request commission information.]
+  </p>
+
+  <h2>Best interests duty</h2>
+  <p>
+    When we provide credit assistance for regulated credit contracts, we are required to act in your
+    best interests and to prioritise your interests over ours.
+  </p>
+
+  <h2>If something goes wrong</h2>
+  <p>
+    Our internal complaints process is described on our <a href="/complaints">Complaints page</a>.
+    If we cannot resolve your complaint, you may contact the Australian Financial Complaints
+    Authority (AFCA) — [OWNER TO CONFIRM: AFCA membership number] — at afca.org.au or 1800 931 678.
+  </p>
+</LegalLayout>

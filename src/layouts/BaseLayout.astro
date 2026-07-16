@@ -1,0 +1,148 @@
+---
+import '@/styles/global.css';
+import SEOHead from '@/components/seo/SEOHead.astro';
+import StructuredData from '@/components/seo/StructuredData.astro';
+import AnnouncementBar from '@/components/layout/AnnouncementBar.astro';
+import Footer from '@/components/layout/Footer.astro';
+import Header from '@/components/navigation/Header';
+import { site } from '@/data/site';
+import { ctaLink, primaryNav, servicesMenu } from '@/data/navigation';
+import { organizationSchema } from '@/utils/schema';
+
+interface Props {
+  title: string;
+  description: string;
+  ogImage?: string;
+  ogType?: 'website' | 'article';
+  noindex?: boolean;
+  /** Extra JSON-LD blocks for this page. */
+  schema?: Array<Record<string, unknown>>;
+}
+
+const { title, description, ogImage, ogType, noindex, schema = [] } = Astro.props;
+const path = Astro.url.pathname;
+---
+
+<!doctype html>
+<html lang="en-AU">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="/favicon.png" type="image/png" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="theme-color" content="#002a23" />
+    <SEOHead
+      title={title}
+      description={description}
+      path={path}
+      ogImage={ogImage}
+      ogType={ogType}
+      noindex={noindex}
+    />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <StructuredData schema={[organizationSchema(), ...schema]} />
+    <script is:inline>
+      // Mark JS availability so scroll-reveal styles only apply when
+      // the observer below will actually run.
+      document.documentElement.classList.add('js');
+    </script>
+  </head>
+  <body>
+    <a href="#main-content" class="skip-link">Skip to content</a>
+    <AnnouncementBar />
+    <Header
+      client:load
+      nav={primaryNav}
+      cta={ctaLink}
+      servicesMenu={servicesMenu}
+      currentPath={path}
+      phone={site.contact.phone}
+      phoneHref={site.contact.phoneHref}
+    />
+    <main id="main-content">
+      <slot />
+    </main>
+    <Footer />
+
+    <script>
+      // Scroll reveal: elements with [data-reveal] fade in on entry.
+      // Respects prefers-reduced-motion (CSS only animates without it).
+      // IntersectionObserver does the work; a cheap rAF-throttled scroll
+      // fallback guarantees content is never left hidden in environments
+      // where IO callbacks are throttled or unavailable.
+      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const pending = new Set<Element>(document.querySelectorAll('[data-reveal]'));
+
+      const reveal = (el: Element) => {
+        el.classList.add('is-revealed');
+        pending.delete(el);
+      };
+
+      if (reduced || !('IntersectionObserver' in window)) {
+        pending.forEach(reveal);
+      } else {
+        const io = new IntersectionObserver(
+          (entries) => {
+            for (const entry of entries) {
+              if (entry.isIntersecting) {
+                io.unobserve(entry.target);
+                reveal(entry.target);
+              }
+            }
+          },
+          { rootMargin: '0px 0px -8% 0px', threshold: 0.1 }
+        );
+        pending.forEach((el) => io.observe(el));
+
+        // Fallback: manual viewport check on scroll/resize (timer-based
+        // throttle — works even where rAF/IO callbacks are throttled).
+        let queued: ReturnType<typeof setTimeout> | null = null;
+        const check = () => {
+          queued = null;
+          const viewport = Math.max(window.innerHeight, document.documentElement.clientHeight, 600);
+          const limit = viewport * 0.95;
+          pending.forEach((el) => {
+            const rect = el.getBoundingClientRect();
+            if (rect.top < limit && rect.bottom > 0) reveal(el);
+          });
+          if (pending.size === 0) {
+            window.removeEventListener('scroll', onScroll);
+            window.removeEventListener('resize', onScroll);
+          }
+        };
+        const onScroll = () => {
+          if (queued === null) queued = setTimeout(check, 90);
+        };
+        window.addEventListener('scroll', onScroll, { passive: true });
+        window.addEventListener('resize', onScroll, { passive: true });
+        onScroll();
+
+        // Last-resort sweep: environments where neither IO nor scroll
+        // events fire (aggressive throttling, print, some webviews).
+        // Checks periodically and unhides everything after ~25s so no
+        // content can ever be permanently invisible.
+        let sweeps = 0;
+        const sweep = setInterval(() => {
+          sweeps += 1;
+          check();
+          if (pending.size === 0 || sweeps > 35) {
+            pending.forEach(reveal);
+            clearInterval(sweep);
+          }
+        }, 700);
+      }
+
+      // Spotlight cards: track pointer for the radial highlight.
+      if (!reduced && matchMedia('(hover: hover)').matches) {
+        document.querySelectorAll<HTMLElement>('.spotlight-card').forEach((card) => {
+          card.addEventListener('pointermove', (e) => {
+            const rect = card.getBoundingClientRect();
+            card.style.setProperty('--spot-x', `${e.clientX - rect.left}px`);
+            card.style.setProperty('--spot-y', `${e.clientY - rect.top}px`);
+          });
+        });
+      }
+    </script>
+  </body>
+</html>

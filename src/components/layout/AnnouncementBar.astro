@@ -1,0 +1,21 @@
+---
+/** Site-wide announcement strip. Content lives in src/data/site.ts. */
+import { site } from '@/data/site';
+const { announcement } = site;
+---
+
+{
+  announcement.enabled && (
+    <div class="bg-pine-950 text-mist-100">
+      <div class="container-site flex items-center justify-center gap-3 py-2 text-center text-[0.82rem] font-medium sm:text-sm">
+        <span>{announcement.text}</span>
+        <a
+          href={announcement.href}
+          class="shrink-0 rounded-full bg-white/10 px-3 py-0.5 font-semibold text-white underline-offset-2 transition-colors hover:bg-white/20"
+        >
+          {announcement.linkLabel}
+        </a>
+      </div>
+    </div>
+  )
+}

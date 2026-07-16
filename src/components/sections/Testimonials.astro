@@ -1,0 +1,73 @@
+---
+/**
+ * Testimonials section. Renders ONLY testimonials with approved: true
+ * in src/data/testimonials. The previous site's template reviews were
+ * not carried over; until real approved reviews are supplied, a
+ * placeholder invitation is shown instead of fabricated quotes.
+ */
+import { getCollection } from 'astro:content';
+import SectionHeader from '@/components/sections/SectionHeader.astro';
+import Icon from '@/components/ui/Icon.astro';
+import { site } from '@/data/site';
+
+const approved = (await getCollection('testimonials')).filter((t) => t.data.approved);
+---
+
+<section class="bg-mist-50">
+  <div class="container-site py-20 sm:py-24">
+    <SectionHeader
+      eyebrow="Client feedback"
+      heading="What clients say about working with us"
+      align="center"
+    />
+    {
+      approved.length > 0 ? (
+        <div class="mt-12 grid gap-6 md:grid-cols-3">
+          {approved.map((t, i) => (
+            <figure
+              class="flex flex-col rounded-2xl border border-line-100 bg-white p-7 shadow-card"
+              data-reveal
+              style={`--reveal-delay: ${i * 80}ms`}
+            >
+              <div class="mb-4 flex gap-1 text-gold-400" aria-hidden="true">
+                {Array.from({ length: 5 }).map(() => (
+                  <Icon name="star" size={16} />
+                ))}
+              </div>
+              <blockquote class="flex-1 text-[0.98rem] leading-relaxed text-ink-700">
+                “{t.data.quote}”
+              </blockquote>
+              <figcaption class="mt-5 border-t border-line-100 pt-4">
+                <p class="font-bold text-ink-950">{t.data.name}</p>
+                {t.data.context && <p class="text-[0.85rem] text-ink-500">{t.data.context}</p>}
+                {t.data.source && (
+                  <p class="mt-0.5 text-[0.78rem] font-medium text-pine-700">via {t.data.source}</p>
+                )}
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+      ) : (
+        <div
+          class="mx-auto mt-12 max-w-xl rounded-2xl border border-dashed border-sage-300 bg-white p-8 text-center"
+          data-reveal
+        >
+          <p class="font-semibold text-ink-900">Verified client reviews are on their way.</p>
+          <p class="mt-2 text-[0.95rem] text-ink-600">
+            We only publish genuine, approved feedback from real clients. In the meantime, you can
+            see what clients say on our{' '}
+            <a
+              href={site.social.facebook}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="font-semibold text-pine-800 underline underline-offset-2"
+            >
+              Facebook page
+            </a>
+            .
+          </p>
+        </div>
+      )
+    }
+  </div>
+</section>

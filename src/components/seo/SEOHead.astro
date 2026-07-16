@@ -1,0 +1,55 @@
+---
+/**
+ * Per-page metadata: title, description, canonical, Open Graph and
+ * Twitter/X cards. Used inside BaseLayout's <head>.
+ */
+import { site } from '@/data/site';
+
+interface Props {
+  title: string;
+  description: string;
+  /** Path-only canonical, e.g. "/services/home-loans" */
+  path: string;
+  ogImage?: string;
+  ogType?: 'website' | 'article';
+  noindex?: boolean;
+}
+
+const {
+  title,
+  description,
+  path,
+  ogImage = '/images/og/og-default.png',
+  ogType = 'website',
+  noindex = false,
+} = Astro.props;
+
+const canonical = `${site.url}${path === '/' ? '' : path.replace(/\/$/, '')}`;
+const ogImageUrl = `${site.url}${ogImage}`;
+---
+
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+{noindex && <meta name="robots" content="noindex, nofollow" />}
+
+<meta property="og:site_name" content={site.name} />
+<meta property="og:type" content={ogType} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:image" content={ogImageUrl} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:locale" content="en_AU" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImageUrl} />
+
+{
+  site.analytics.searchConsoleVerification && (
+    <meta name="google-site-verification" content={site.analytics.searchConsoleVerification} />
+  )
+}

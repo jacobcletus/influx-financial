@@ -1,0 +1,66 @@
+---
+import LegalLayout from '@/layouts/LegalLayout.astro';
+import { site } from '@/data/site';
+---
+
+<LegalLayout
+  title="Disclaimer | Influx Financial"
+  description="Important information about the general nature of content on this website, calculators, third-party information and lending criteria."
+  heading="Disclaimer"
+  path="/disclaimer"
+  lastUpdated={new Date('2026-07-01')}
+>
+  <h2>General information only</h2>
+  <p>
+    The information on this website is general in nature. It has been prepared without taking into
+    account your objectives, financial situation or needs, and is not financial, credit, legal or
+    tax advice. Before acting on any information on this site, consider whether it is appropriate
+    for your circumstances and seek advice from appropriately qualified professionals.
+  </p>
+
+  <h2>Lending criteria</h2>
+  <p>
+    All loan products described on this website are subject to lender assessment and approval.
+    Interest rates, fees, charges and lending criteria vary between lenders and change over time.
+    Nothing on this website is an offer of credit.
+  </p>
+
+  <h2>Comparing loan options</h2>
+  <p>
+    Where we describe comparing loans "across our panel", this means the lenders on the Influx
+    Financial panel — not every product in the Australian market.
+  </p>
+
+  <h2>Government schemes and figures</h2>
+  <p>
+    Government grants, schemes, thresholds and concessions change frequently. Content about them is
+    reviewed periodically (see the "last reviewed" dates on relevant pages) but may not reflect the
+    latest settings. Always confirm current eligibility criteria from official sources or with our
+    team before relying on them.
+  </p>
+
+  <h2>Calculators</h2>
+  <p>
+    Calculators provide estimates based on the figures and assumptions shown. They do not assess
+    your borrowing capacity and are not a substitute for a formal assessment.
+  </p>
+
+  <h2>Case studies and testimonials</h2>
+  <p>
+    Client stories and testimonials describe individual, verified experiences. Outcomes depend on
+    personal circumstances and are not a prediction or guarantee of results for other clients.
+  </p>
+
+  <h2>Tax and accounting content</h2>
+  <p>
+    Tax-related content is general in nature. Accounting and tax services are provided by OneHQ
+    Accounting [OWNER TO CONFIRM: entity details and registered tax agent number]; tax outcomes
+    depend on individual circumstances.
+  </p>
+
+  <h2>Questions</h2>
+  <p>
+    If anything on this site is unclear, contact us at
+    <a href={site.contact.emailHref}>{site.contact.email}</a> or {site.contact.phone} before making decisions.
+  </p>
+</LegalLayout>

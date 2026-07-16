@@ -1,0 +1,36 @@
+# ============================================================
+# Cloudflare Pages redirects — 301s from the old WordPress URLs
+# Derived from the previous site's XML sitemap (all indexed URLs).
+# ============================================================
+
+# Old WordPress pages
+/about-us/            /about                301
+/about-us             /about                301
+/contact-us/          /contact              301
+/contact-us           /contact              301
+/blog/                /resources            301
+/blog                 /resources            301
+/dummy/               /                     301
+/dummy                /                     301
+
+# Old lorem-ipsum blog posts (no real content to preserve)
+/dolorum-est-et-sunt-molestiae/       /resources  301
+/dolorum-est-et-sunt-molestiae        /resources  301
+/voluptas-vitae-quasi-ut/             /resources  301
+/voluptas-vitae-quasi-ut              /resources  301
+/doloremque-est-vitae-molestiae-ut/   /resources  301
+/doloremque-est-vitae-molestiae-ut    /resources  301
+
+# WordPress internals that sometimes get indexed
+/wp-admin/*           /                     301
+/wp-login.php         /                     301
+/feed/                /                     301
+/category/*           /resources            301
+
+# Real Estate service removed pending owner confirmation
+/services/real-estate /services             301
+
+# Normalise trailing slashes for new routes (Pages usually handles
+# this, kept explicit for safety)
+/services/            /services             301
+/resources/           /resources            301

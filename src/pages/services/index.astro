@@ -1,0 +1,54 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/navigation/Breadcrumbs.astro';
+import SectionHeader from '@/components/sections/SectionHeader.astro';
+import ServiceCard from '@/components/ui/ServiceCard.astro';
+import ConsultationCTA from '@/components/sections/ConsultationCTA.astro';
+
+const services = (await getCollection('services')).sort((a, b) => a.data.order - b.data.order);
+---
+
+<BaseLayout
+  title="Mortgage, Lending & Accounting Services | Influx Financial"
+  description="Every Influx Financial service in one place — home loans, first home buyers, refinancing, investment, construction, commercial, asset finance, self-employed lending and accounting."
+>
+  <section class="bg-mist-50 bg-texture">
+    <div class="container-site py-14 sm:py-16">
+      <Breadcrumbs items={[{ name: 'Services', href: '/services' }]} class="mb-6 text-ink-500" />
+      <SectionHeader
+        as="h1"
+        eyebrow="Services"
+        heading="What we can take off your plate"
+        lede="Ten specialised services across lending and accounting. Each page explains who it's for, how the process works, and what to consider — no sales fluff."
+      />
+    </div>
+  </section>
+
+  <section class="bg-white">
+    <div class="container-site py-16 sm:py-20">
+      <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {
+          services.map((service, i) => (
+            <ServiceCard
+              title={service.data.navLabel}
+              description={service.data.metaDescription.split('.')[0] + '.'}
+              href={`/services/${service.id}`}
+              icon={service.data.icon}
+              delay={(i % 3) * 60}
+            />
+          ))
+        }
+      </div>
+      <p class="mt-10 max-w-2xl text-[0.9rem] text-ink-500" data-reveal>
+        Not sure where your situation fits? That's normal — most clients' needs span two or three of
+        these. Start with a <a
+          href="/book-consultation"
+          class="font-semibold text-pine-800 underline underline-offset-2">free consultation</a
+        > and we'll point you the right way.
+      </p>
+    </div>
+  </section>
+
+  <ConsultationCTA />
+</BaseLayout>

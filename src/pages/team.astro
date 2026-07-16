@@ -1,0 +1,125 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/navigation/Breadcrumbs.astro';
+import Icon from '@/components/ui/Icon.astro';
+import ConsultationCTA from '@/components/sections/ConsultationCTA.astro';
+import { site } from '@/data/site';
+import { personSchema } from '@/utils/schema';
+
+const team = (await getCollection('team')).sort((a, b) => a.data.order - b.data.order);
+const stripTodo = (s: string) => s.replace(/\s*\[OWNER TO CONFIRM:[^\]]*\]\s*/g, ' ').trim();
+
+const schemas = team.map((m) =>
+  personSchema({
+    name: m.data.name,
+    role: m.data.role,
+    image: m.data.image,
+    url: `${site.url}/team`,
+    description: stripTodo(m.data.bio),
+  })
+);
+---
+
+<BaseLayout
+  title="Our Team — Influx Financial Melbourne"
+  description="Meet the directors of Influx Financial: Jose Poly (mortgage broking) and Joe Anto (accounting, OneHQ). The people who actually manage your file."
+  schema={schemas}
+>
+  <section class="bg-mist-50 bg-texture">
+    <div class="container-site py-14 sm:py-16">
+      <Breadcrumbs items={[{ name: 'Team', href: '/team' }]} class="mb-6 text-ink-500" />
+      <div class="max-w-3xl">
+        <p class="mb-3 text-[0.8rem] font-bold uppercase tracking-[0.14em] text-pine-700">
+          Our team
+        </p>
+        <h1 class="text-3xl sm:text-4xl lg:text-[2.75rem]">
+          The people who answer when you call
+        </h1>
+        <p class="mt-5 text-lg leading-relaxed text-ink-600">
+          Influx is deliberately director-led. The people below aren't the "leadership page" above
+          a call centre — they're who you'll deal with, start to finish.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-white">
+    <div class="container-site space-y-16 py-16 sm:py-20">
+      {
+        team.map((member, i) => (
+          <article
+            class={`grid items-start gap-10 lg:grid-cols-[minmax(0,380px)_1fr] ${i % 2 === 1 ? 'lg:[&>div:first-child]:order-2' : ''}`}
+            data-reveal
+          >
+            <div class="overflow-hidden rounded-3xl border border-line-100 bg-mist-100 shadow-card">
+              <img
+                src={member.data.image}
+                alt={member.data.imageAlt}
+                width="400"
+                height="400"
+                loading={i === 0 ? 'eager' : 'lazy'}
+                class="aspect-square w-full object-cover"
+              />
+            </div>
+            <div>
+              <h2 class="text-2xl sm:text-3xl">{member.data.name}</h2>
+              <p class="mt-1 font-semibold text-pine-700">{member.data.role}</p>
+              <p class="mt-5 max-w-2xl leading-relaxed text-ink-700">{stripTodo(member.data.bio)}</p>
+
+              {member.data.qualifications.length > 0 ? (
+                <div class="mt-5">
+                  <h3 class="text-sm font-bold uppercase tracking-wider text-ink-500">
+                    Qualifications
+                  </h3>
+                  <ul class="mt-2 space-y-1 text-[0.95rem] text-ink-700">
+                    {member.data.qualifications.map((q) => (
+                      <li class="flex items-center gap-2">
+                        <Icon name="check" size={14} class="text-pine-700" />
+                        {q}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ) : (
+                <p class="mt-5 rounded-lg border border-dashed border-sage-300 bg-mist-50 px-4 py-3 text-[0.85rem] text-ink-500">
+                  Qualifications and accreditations will be listed here once confirmed.
+                  <!-- [OWNER TO CONFIRM: qualifications, memberships, credit representative details] -->
+                </p>
+              )}
+
+              {member.data.focus.length > 0 && (
+                <ul class="mt-5 flex flex-wrap gap-2">
+                  {member.data.focus.map((f) => (
+                    <li class="rounded-full bg-mist-100 px-3.5 py-1.5 text-[0.82rem] font-semibold text-pine-800">
+                      {f}
+                    </li>
+                  ))}
+                </ul>
+              )}
+
+              <div class="mt-7 flex flex-wrap gap-3">
+                <a
+                  href={site.contact.phoneHref}
+                  class="inline-flex items-center gap-2 rounded-full bg-pine-700 px-5 py-2.5 text-[0.92rem] font-semibold text-white transition-colors hover:bg-pine-800"
+                >
+                  <Icon name="phone" size={16} />
+                  {site.contact.phone}
+                </a>
+                <a
+                  href={site.contact.emailHref}
+                  class="inline-flex items-center gap-2 rounded-full border border-line-200 px-5 py-2.5 text-[0.92rem] font-semibold text-pine-800 transition-colors hover:bg-mist-100"
+                >
+                  <Icon name="mail" size={16} />
+                  Email the team
+                </a>
+              </div>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <ConsultationCTA />
+</BaseLayout>

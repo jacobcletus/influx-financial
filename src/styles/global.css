@@ -1,0 +1,313 @@
+/* ============================================================
+   Influx Financial — design tokens & global styles
+   Palette extracted from the existing influxfinancial.com.au
+   Elementor kit (post-14.css):
+     primary   #002A23   deep pine green
+     secondary #006D5A   Influx green (logo colour)
+     dark      #015849
+     sage      #9DC5BE
+     mist      #E8FFFB / #EEFFFC / #F7FFFE
+     border    #D8DDDC
+     warm gold #FFEAB0 / #FFBC7D (used sparingly as highlight)
+   Typography on the old site was "Stage Grotesk" (commercial,
+   not redistributable). We self-host Schibsted Grotesk (SIL OFL)
+   which carries the same confident grotesque character.
+   ============================================================ */
+
+@import 'tailwindcss';
+@import '@fontsource-variable/schibsted-grotesk';
+
+@theme {
+  /* --- Colour tokens --- */
+  --color-pine-950: #002a23;
+  --color-pine-900: #01382e;
+  --color-pine-800: #015849;
+  --color-pine-700: #006d5a;
+  --color-pine-600: #0a8570;
+  --color-pine-500: #23997f;
+
+  --color-sage-400: #7fb0a7;
+  --color-sage-300: #9dc5be;
+  --color-sage-200: #c3ddd7;
+
+  --color-mist-50: #f7fffe;
+  --color-mist-100: #eefffc;
+  --color-mist-200: #e8fffb;
+
+  --color-gold-200: #ffeab0;
+  --color-gold-400: #ffbc7d;
+
+  --color-ink-950: #0a1512;
+  --color-ink-900: #12211d;
+  --color-ink-700: #33443f;
+  --color-ink-600: #475853;
+  --color-ink-500: #5c6d68;
+
+  --color-line-200: #d8dddc;
+  --color-line-100: #e7ecea;
+
+  /* --- Typography --- */
+  --font-sans:
+    'Schibsted Grotesk Variable', 'Schibsted Grotesk', ui-sans-serif, system-ui, -apple-system,
+    'Segoe UI', sans-serif;
+
+  --tracking-tightest: -0.035em;
+  --tracking-tighter: -0.02em;
+
+  /* --- Radius --- */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.625rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+  --radius-2xl: 2rem;
+
+  /* --- Shadows (restrained) --- */
+  --shadow-card: 0 1px 2px rgb(0 42 35 / 0.04), 0 4px 16px rgb(0 42 35 / 0.05);
+  --shadow-card-hover: 0 2px 4px rgb(0 42 35 / 0.05), 0 12px 32px rgb(0 42 35 / 0.09);
+  --shadow-nav: 0 1px 0 rgb(0 42 35 / 0.05), 0 8px 24px rgb(0 42 35 / 0.06);
+
+  /* --- Motion --- */
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+  --duration-fast: 180ms;
+  --duration-base: 280ms;
+  --duration-slow: 480ms;
+}
+
+/* ---------- Base ----------
+   Kept inside @layer base so Tailwind utilities (e.g. text-white on
+   dark-section headings) can still override these defaults. */
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  body {
+    font-family: var(--font-sans);
+    color: var(--color-ink-700);
+    background-color: #ffffff;
+    font-size: 1.0625rem;
+    line-height: 1.7;
+    letter-spacing: -0.01em;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    color: var(--color-ink-950);
+    letter-spacing: var(--tracking-tightest);
+    line-height: 1.12;
+    font-weight: 700;
+    text-wrap: balance;
+  }
+
+  ::selection {
+    background: var(--color-pine-700);
+    color: #fff;
+  }
+
+  /* Visible focus for keyboard users */
+  :focus-visible {
+    outline: 2px solid var(--color-pine-700);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  .on-dark :focus-visible {
+    outline-color: var(--color-mist-100);
+  }
+}
+
+/* ---------- Utility components ---------- */
+
+@utility container-site {
+  margin-inline: auto;
+  width: 100%;
+  max-width: 76rem;
+  padding-inline: 1.25rem;
+  @media (min-width: 640px) {
+    padding-inline: 2rem;
+  }
+  @media (min-width: 1024px) {
+    padding-inline: 2.5rem;
+  }
+}
+
+/* Subtle dotted texture for section backgrounds */
+@utility bg-texture {
+  background-image: radial-gradient(rgb(0 42 35 / 0.055) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+@utility bg-texture-dark {
+  background-image: radial-gradient(rgb(255 255 255 / 0.06) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+/* ---------- Scroll-reveal system ----------
+   Elements with [data-reveal] fade/rise in when they enter the
+   viewport (IntersectionObserver in BaseLayout). Without JS, or
+   with reduced motion, content is fully visible. */
+
+@media (prefers-reduced-motion: no-preference) {
+  .js [data-reveal] {
+    opacity: 0;
+    transform: translateY(20px);
+    transition:
+      opacity var(--duration-slow) var(--ease-out-soft),
+      transform var(--duration-slow) var(--ease-out-soft);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+  .js [data-reveal].is-revealed {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Hero heading: word-by-word rise */
+  .js .hero-word {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(0.55em);
+    filter: blur(4px);
+    animation: hero-word-in 0.7s var(--ease-out-soft) forwards;
+    animation-delay: calc(var(--word-index, 0) * 60ms);
+  }
+  @keyframes hero-word-in {
+    to {
+      opacity: 1;
+      transform: none;
+      filter: blur(0);
+    }
+  }
+}
+
+/* ---------- FAQ / accordion (native <details>) ---------- */
+
+.faq-item summary {
+  cursor: pointer;
+  list-style: none;
+}
+.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+.faq-item .faq-chevron {
+  transition: transform var(--duration-base) var(--ease-out-soft);
+}
+.faq-item[open] .faq-chevron {
+  transform: rotate(45deg);
+}
+.faq-item .faq-body {
+  overflow: hidden;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .faq-item::details-content {
+    opacity: 0;
+    block-size: 0;
+    transition:
+      block-size var(--duration-base) var(--ease-out-soft),
+      content-visibility var(--duration-base) allow-discrete,
+      opacity var(--duration-base) var(--ease-out-soft);
+  }
+  .faq-item[open]::details-content {
+    opacity: 1;
+    block-size: auto;
+  }
+}
+
+/* ---------- Card spotlight (pointer-tracked highlight) ---------- */
+
+.spotlight-card {
+  position: relative;
+  overflow: hidden;
+}
+.spotlight-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity var(--duration-base) ease;
+  background: radial-gradient(
+    360px circle at var(--spot-x, 50%) var(--spot-y, 50%),
+    rgb(0 109 90 / 0.08),
+    transparent 65%
+  );
+  pointer-events: none;
+}
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .spotlight-card:hover::before {
+    opacity: 1;
+  }
+}
+
+/* ---------- View transitions (page fade, ~250ms) ---------- */
+
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition {
+    navigation: auto;
+  }
+  ::view-transition-old(root) {
+    animation: page-out 0.2s ease both;
+  }
+  ::view-transition-new(root) {
+    animation: page-in 0.25s ease both;
+  }
+  @keyframes page-out {
+    to {
+      opacity: 0;
+    }
+  }
+  @keyframes page-in {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+  }
+}
+
+/* ---------- Forms ---------- */
+
+.field-input {
+  width: 100%;
+  border: 1px solid var(--color-line-200);
+  border-radius: var(--radius-md);
+  background: #fff;
+  padding: 0.7rem 0.9rem;
+  font-size: 1rem;
+  color: var(--color-ink-900);
+  transition: border-color var(--duration-fast) ease;
+}
+.field-input:focus {
+  border-color: var(--color-pine-700);
+  outline: 2px solid transparent;
+}
+.field-input[aria-invalid='true'] {
+  border-color: #b3261e;
+}
+
+/* ---------- Misc ---------- */
+
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -100%;
+  z-index: 100;
+  background: var(--color-pine-950);
+  color: #fff;
+  padding: 0.6rem 1rem;
+  border-radius: var(--radius-md);
+}
+.skip-link:focus {
+  top: 1rem;
+}
+
+/* Screen-reader-only (Tailwind provides sr-only; kept for clarity) */

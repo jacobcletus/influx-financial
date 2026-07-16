@@ -1,0 +1,39 @@
+---
+/**
+ * Accessible FAQ accordion using native <details>/<summary> —
+ * keyboard accessible and functional without JavaScript. Animation
+ * is pure CSS (::details-content) and respects reduced motion.
+ */
+interface Props {
+  items: Array<{ question: string; answer: string }>;
+  class?: string;
+}
+const { items, class: className = '' } = Astro.props;
+---
+
+<div class={`divide-y divide-line-100 rounded-2xl border border-line-100 bg-white ${className}`}>
+  {
+    items.map((item) => (
+      <details class="faq-item group px-5 sm:px-6">
+        <summary class="flex items-center justify-between gap-4 py-5 text-left text-[1.05rem] font-semibold text-ink-900 transition-colors hover:text-pine-800">
+          {item.question}
+          <span class="faq-chevron flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-line-200 text-pine-700">
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              aria-hidden="true"
+            >
+              <path d="M12 5v14M5 12h14" />
+            </svg>
+          </span>
+        </summary>
+        <div class="faq-body pb-6 pr-8 leading-relaxed text-ink-600">{item.answer}</div>
+      </details>
+    ))
+  }
+</div>

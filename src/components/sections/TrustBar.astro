@@ -1,0 +1,32 @@
+---
+/**
+ * Trust bar under the hero. Only statistics present in
+ * src/data/site.ts are shown; figures pending owner verification are
+ * marked in that file. Lender logos are intentionally NOT displayed
+ * until Influx confirms permission from each lender.
+ */
+import StatCounter from '@/components/animations/StatCounter';
+import { site } from '@/data/site';
+---
+
+<section class="bg-pine-900" aria-label="About Influx at a glance">
+  <div class="container-site py-12">
+    <div class="grid grid-cols-1 items-center gap-10 sm:grid-cols-3">
+      {
+        site.stats.map((stat) => (
+          <StatCounter client:visible value={stat.value} suffix={stat.suffix} label={stat.label} />
+        ))
+      }
+      <div class="text-center">
+        <p class="text-4xl font-extrabold tracking-tight text-white sm:text-5xl">2-in-1</p>
+        <p class="mt-1.5 text-[0.9rem] font-medium text-sage-300">
+          mortgage broking + accounting under one roof
+        </p>
+      </div>
+    </div>
+    <p class="mt-8 text-center text-xs text-sage-400">
+      <!-- [OWNER TO CONFIRM: figures above re-verified for the new site; add memberships/licence once confirmed] -->
+      Figures based on Influx Financial client and lender-panel records.
+    </p>
+  </div>
+</section>

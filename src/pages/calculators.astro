@@ -1,0 +1,54 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/navigation/Breadcrumbs.astro';
+import SectionHeader from '@/components/sections/SectionHeader.astro';
+import RepaymentCalculator from '@/components/forms/RepaymentCalculator';
+import ConsultationCTA from '@/components/sections/ConsultationCTA.astro';
+---
+
+<BaseLayout
+  title="Home Loan Repayment Calculator | Influx Financial"
+  description="Estimate your home loan repayments by amount, rate, term and frequency. A quick guide — then get your real borrowing numbers from a broker."
+>
+  <section class="bg-mist-50 bg-texture">
+    <div class="container-site py-14 sm:py-16">
+      <Breadcrumbs
+        items={[{ name: 'Calculators', href: '/calculators' }]}
+        class="mb-6 text-ink-500"
+      />
+      <SectionHeader
+        as="h1"
+        eyebrow="Calculators"
+        heading="Repayment calculator"
+        lede="A quick estimate of principal-and-interest repayments. Useful for a first feel of the numbers — not a substitute for a proper assessment."
+      />
+    </div>
+  </section>
+
+  <section class="bg-white">
+    <div class="container-site py-16 sm:py-20">
+      <RepaymentCalculator client:visible />
+      <div class="mt-10 max-w-3xl space-y-3 text-[0.82rem] leading-relaxed text-ink-500">
+        <p>
+          <strong class="font-semibold">About this estimate:</strong> results assume a constant interest
+          rate for the full term, principal-and-interest repayments, and no fees or offset effects. Actual
+          repayments depend on the lender, product, fees and how rates move. This calculator does not
+          assess what you can borrow and is not an offer of credit or financial advice.
+        </p>
+        <p>
+          Your real borrowing power differs between lenders — often significantly. For numbers you
+          can act on, <a
+            href="/book-consultation"
+            class="font-semibold text-pine-800 underline underline-offset-2"
+            >book a free consultation</a
+          >.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <ConsultationCTA
+    heading="Want your actual numbers?"
+    body="Borrowing power calculators disagree with each other because lenders do. We calculate yours across the panel, for free."
+  />
+</BaseLayout>

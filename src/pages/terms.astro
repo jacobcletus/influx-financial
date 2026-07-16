@@ -1,0 +1,71 @@
+---
+import LegalLayout from '@/layouts/LegalLayout.astro';
+import { site } from '@/data/site';
+---
+
+<LegalLayout
+  title="Terms of Use | Influx Financial"
+  description="Terms governing your use of the Influx Financial website, including intellectual property, acceptable use and liability."
+  heading="Terms of Use"
+  path="/terms"
+  lastUpdated={new Date('2026-07-01')}
+>
+  <p>
+    <strong>[OWNER TO CONFIRM: Working draft — have your lawyer review before launch.]</strong>
+  </p>
+  <p>
+    These terms govern your use of influxfinancial.com.au, operated by {site.legalName}. By using
+    this website you accept these terms.
+  </p>
+
+  <h2>Information, not advice</h2>
+  <p>
+    Content on this website is general information only. It does not take into account your
+    objectives, financial situation or needs, and is not financial, credit, legal or tax advice.
+    Before acting on anything you read here, consider its appropriateness to your circumstances and
+    seek professional advice. See our <a href="/disclaimer">Disclaimer</a>.
+  </p>
+
+  <h2>Calculators and tools</h2>
+  <p>
+    Calculators on this website produce estimates from the figures you enter and stated assumptions.
+    They are not loan offers, quotes or assessments of your borrowing capacity.
+  </p>
+
+  <h2>Intellectual property</h2>
+  <p>
+    Content on this website — text, graphics, logos and layout — is owned by or licensed to
+    {site.legalName} and protected by copyright. You may view and print pages for personal use; any other
+    reproduction requires our written permission.
+  </p>
+
+  <h2>Acceptable use</h2>
+  <p>
+    You must not misuse this website, including by attempting unauthorised access, scraping at
+    scale, submitting false or misleading enquiries, or introducing malicious code.
+  </p>
+
+  <h2>Third-party links</h2>
+  <p>
+    Links to third-party websites are provided for convenience. We don't control and aren't
+    responsible for their content.
+  </p>
+
+  <h2>Liability</h2>
+  <p>
+    To the extent permitted by law, {site.legalName} excludes liability for loss arising from use of this
+    website or reliance on its general content. Nothing in these terms excludes rights you have under
+    the Australian Consumer Law.
+  </p>
+
+  <h2>Changes</h2>
+  <p>
+    We may update these terms and this website at any time. Continued use after changes constitutes
+    acceptance.
+  </p>
+
+  <h2>Contact</h2>
+  <p>
+    Questions about these terms: <a href={site.contact.emailHref}>{site.contact.email}</a>.
+  </p>
+</LegalLayout>
