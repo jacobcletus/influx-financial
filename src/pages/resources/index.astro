@@ -12,7 +12,7 @@ const articles = (await getCollection('articles', ({ data }) => !data.draft)).so
   (a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf()
 );
 
-const [latest, ...rest] = articles;
+const [latest] = articles;
 const categories = [...new Set(articles.map((a) => a.data.category))];
 ---
 

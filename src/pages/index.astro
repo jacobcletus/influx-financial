@@ -97,7 +97,7 @@ const whyPoints = [
   <!-- ============ HERO ============ -->
   <section class="bg-glow-dark on-dark relative overflow-hidden bg-pine-950">
     <div
-      class="container-site relative grid items-center gap-14 py-20 sm:py-24 lg:grid-cols-[1.2fr_0.8fr] lg:py-28"
+      class="container-site relative grid items-center gap-14 py-20 sm:py-24 lg:grid-cols-[1fr_0.95fr] lg:py-28"
     >
       <div>
         <p
@@ -169,11 +169,11 @@ const whyPoints = [
 
       <!-- Real team imagery, aligned, chips kept clear of the photos -->
       <div
-        class="relative mx-auto hidden w-full max-w-md sm:block"
+        class="relative mx-auto hidden w-full max-w-xl sm:block lg:mr-0"
         data-reveal
         style="--reveal-delay: 250ms"
       >
-        <div class="grid grid-cols-2 gap-4">
+        <div class="grid grid-cols-2 gap-5">
           <figure class="overflow-hidden rounded-[1.35rem] bg-white shadow-card-hover">
             <img
               src="/images/team/jose-poly-studio.jpg"
@@ -304,6 +304,37 @@ const whyPoints = [
     </div>
   </section>
 
+  <!-- ============ TEAM ============ -->
+  <section class="bg-mist-50">
+    <div class="container-site py-24 sm:py-28">
+      <div class="flex flex-wrap items-end justify-between gap-6">
+        <SectionHeader
+          eyebrow="Your team"
+          heading="Two directors, one conversation"
+          lede="Lending on one side, accounting on the other, and you get both."
+        />
+        <Button href="/team" variant="secondary" class="mb-1">
+          Meet the team
+          <Icon name="arrow-right" size={15} />
+        </Button>
+      </div>
+      <div class="mx-auto mt-12 grid max-w-3xl gap-6 sm:grid-cols-2">
+        {
+          team.map((member, i) => (
+            <TeamCard
+              name={member.data.name}
+              role={member.data.role}
+              image={member.data.image}
+              imageAlt={member.data.imageAlt}
+              focus={member.data.focus}
+              delay={i * 80}
+            />
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
   <!-- ============ FIRST HOME BUYER FEATURE ============ -->
   <section class="bg-glow-dark on-dark bg-pine-950">
     <div class="container-site grid items-center gap-12 py-24 sm:py-28 lg:grid-cols-2">
@@ -412,37 +443,6 @@ const whyPoints = [
               <h3 class="text-[1.12rem] font-bold text-ink-950">{point.title}</h3>
               <p class="mt-2 text-[0.92rem] leading-relaxed text-ink-600">{point.body}</p>
             </div>
-          ))
-        }
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ TEAM ============ -->
-  <section class="bg-white">
-    <div class="container-site py-24 sm:py-28">
-      <div class="flex flex-wrap items-end justify-between gap-6">
-        <SectionHeader
-          eyebrow="Your team"
-          heading="Two directors, one conversation"
-          lede="Lending on one side, accounting on the other, and you get both."
-        />
-        <Button href="/team" variant="secondary" class="mb-1">
-          Meet the team
-          <Icon name="arrow-right" size={15} />
-        </Button>
-      </div>
-      <div class="mx-auto mt-12 grid max-w-3xl gap-6 sm:grid-cols-2">
-        {
-          team.map((member, i) => (
-            <TeamCard
-              name={member.data.name}
-              role={member.data.role}
-              image={member.data.image}
-              imageAlt={member.data.imageAlt}
-              focus={member.data.focus}
-              delay={i * 80}
-            />
           ))
         }
       </div>
