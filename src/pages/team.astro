@@ -67,7 +67,7 @@ const schemas = team.map((m) =>
               <p class="mt-1 font-semibold text-pine-700">{member.data.role}</p>
               <p class="mt-5 max-w-2xl leading-relaxed text-ink-700">{stripTodo(member.data.bio)}</p>
 
-              {member.data.qualifications.length > 0 ? (
+              {member.data.qualifications.length > 0 && (
                 <div class="mt-5">
                   <h3 class="text-sm font-bold uppercase tracking-wider text-ink-500">
                     Qualifications
@@ -81,11 +81,6 @@ const schemas = team.map((m) =>
                     ))}
                   </ul>
                 </div>
-              ) : (
-                <p class="mt-5 rounded-lg border border-dashed border-sage-300 bg-mist-50 px-4 py-3 text-[0.85rem] text-ink-500">
-                  Qualifications and accreditations will be listed here once confirmed.
-                  <!-- [OWNER TO CONFIRM: qualifications, memberships, credit representative details] -->
-                </p>
               )}
 
               {member.data.focus.length > 0 && (

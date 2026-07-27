@@ -14,7 +14,7 @@
 #    input into pages, so the XSS surface this opens is minimal.
 #  - challenges.cloudflare.com is allowed for Turnstile.
 #  - If analytics is added later, extend script-src/connect-src and
-#    document the domain here. [OWNER TO CONFIRM: analytics platform]
+#    document the domain here.
 # ============================================================
 
 /*
