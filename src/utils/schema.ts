@@ -1,7 +1,7 @@
 /**
  * JSON-LD structured data builders. All business facts come from
  * src/data/site.ts so schema stays consistent with visible content.
- * Fields that are unverified (null in site.ts) are simply omitted —
+ * Fields that are unverified (null in site.ts) are simply omitted,
  * never fabricated.
  */
 import { site } from '@/data/site';
@@ -20,7 +20,7 @@ export function organizationSchema(): JsonLd {
     logo: `${site.url}/images/influx-logo-dark.png`,
     image: `${site.url}/images/og/og-default.png`,
     description: site.description,
-    telephone: '+61 3 7047 9370',
+    telephone: '+61 488 705 689',
     email: site.contact.email,
     areaServed: [
       { '@type': 'City', name: 'Melbourne' },
@@ -28,8 +28,14 @@ export function organizationSchema(): JsonLd {
       { '@type': 'Country', name: 'Australia' },
     ],
     sameAs: [site.social.facebook].filter(Boolean),
-    // Address intentionally omitted until a public office address is
-    // confirmed. [OWNER TO CONFIRM]
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: `${site.offices[0].building}, ${site.offices[0].address}`,
+      addressLocality: 'Mickleham',
+      addressRegion: 'VIC',
+      postalCode: '3064',
+      addressCountry: 'AU',
+    },
   };
 }
 

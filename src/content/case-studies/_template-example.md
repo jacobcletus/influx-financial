@@ -1,6 +1,6 @@
 ---
 # =============================================================
-# CASE STUDY TEMPLATE — NOT PUBLISHED (draft: true)
+# CASE STUDY TEMPLATE, NOT PUBLISHED (draft: true)
 # =============================================================
 # To publish a real client story:
 #   1. Copy this file, e.g. first-home-buyer-fhb-scheme.md
@@ -15,13 +15,13 @@ clientType: '[e.g. First home buyer couple, Melbourne north]'
 service: 'first-home-buyers'
 publishDate: 2026-07-01
 challenge: '[What was the client trying to do, and what was in the way?]'
-approach: '[What did Influx actually do — lender selection, structure, schemes, timing?]'
+approach: '[What did Influx actually do, lender selection, structure, schemes, timing?]'
 outcome: '[The verified result. No exaggeration, no invented numbers.]'
 approved: false
 draft: true
 ---
 
-Write the full story here in 3–5 short sections: the situation, the
+Write the full story here in 3 to 5 short sections: the situation, the
 sticking point, what we did, and where the client landed. Keep client
 privacy intact and include only details the client has approved.
 

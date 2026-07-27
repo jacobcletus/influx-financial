@@ -1,23 +1,25 @@
 ---
 interface Props {
   href: string;
-  variant?: 'primary' | 'secondary' | 'ghost' | 'inverse';
+  variant?: 'primary' | 'secondary' | 'ghost' | 'inverse' | 'gold';
   size?: 'md' | 'lg';
   class?: string;
 }
 const { href, variant = 'primary', size = 'md', class: className = '' } = Astro.props;
 
 const base =
-  'group inline-flex items-center justify-center gap-2 rounded-full font-semibold transition-all duration-200 motion-safe:hover:-translate-y-px';
+  'group inline-flex items-center justify-center gap-2 rounded-full font-semibold tracking-[-0.01em] transition-all duration-200 motion-safe:hover:-translate-y-px';
 const sizes = {
   md: 'px-6 py-3 text-[0.95rem]',
   lg: 'px-7 py-3.5 text-base',
 };
 const variants = {
-  primary: 'bg-pine-700 text-white hover:bg-pine-800 shadow-card',
-  secondary: 'border border-line-200 bg-white text-pine-800 hover:border-sage-300 hover:bg-mist-50',
+  primary: 'bg-pine-800 text-white hover:bg-pine-950 shadow-btn',
+  secondary:
+    'border border-pine-800/15 bg-white text-pine-900 hover:border-pine-800/35 hover:bg-mist-50',
   ghost: 'text-pine-800 hover:bg-mist-100',
   inverse: 'bg-white text-pine-900 hover:bg-mist-100 shadow-card',
+  gold: 'bg-gold-400 text-pine-950 hover:bg-gold-200 shadow-btn',
 };
 ---
 

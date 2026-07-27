@@ -2,41 +2,129 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumbs from '@/components/navigation/Breadcrumbs.astro';
-import SectionHeader from '@/components/sections/SectionHeader.astro';
+import Button from '@/components/ui/Button.astro';
+import Icon from '@/components/ui/Icon.astro';
 import ArticleCard from '@/components/ui/ArticleCard.astro';
 import ConsultationCTA from '@/components/sections/ConsultationCTA.astro';
+import { formatDate } from '@/utils/format';
 
 const articles = (await getCollection('articles', ({ data }) => !data.draft)).sort(
   (a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf()
 );
 
+const [latest, ...rest] = articles;
 const categories = [...new Set(articles.map((a) => a.data.category))];
 ---
 
 <BaseLayout
-  title="Resources & Guides — Home Loans, Refinancing, Tax | Influx Financial"
-  description="Plain-English guides on deposits, pre-approval, fixed vs variable rates, refinancing costs, offset accounts and property tax — written and reviewed by the Influx team."
+  title="Resources & Guides, Home Loans, Refinancing, Tax | Influx Financial"
+  description="Plain-English guides on deposits, pre-approval, fixed vs variable rates, refinancing costs, offset accounts and property tax, written and reviewed by the Influx team."
 >
-  <section class="bg-mist-50 bg-texture">
-    <div class="container-site py-14 sm:py-16">
-      <Breadcrumbs items={[{ name: 'Resources', href: '/resources' }]} class="mb-6 text-ink-500" />
-      <SectionHeader
-        as="h1"
-        eyebrow="Resources"
-        heading="Guides that respect your time"
-        lede="Every article is written by the team, dated, reviewed for accuracy, and free of filler. If a topic isn't covered yet, ask us — it probably becomes the next guide."
-      />
+  <!-- ============ HERO ============ -->
+  <section class="bg-glow-dark on-dark bg-pine-950">
+    <div class="container-site py-16 sm:py-20 lg:py-24">
+      <Breadcrumbs items={[{ name: 'Resources', href: '/resources' }]} class="mb-8 text-sage-300" />
+      <p
+        class="eyebrow mb-6 rounded-full border border-white/15 bg-white/[0.07] px-3.5 py-1.5 text-sage-300"
+        data-reveal
+      >
+        Resources
+      </p>
+      <h1
+        class="max-w-3xl text-[2.2rem] font-extrabold uppercase leading-[1.02] tracking-[-0.02em] text-white sm:text-5xl lg:text-[3.6rem]"
+      >
+        Guides that respect your time
+      </h1>
+      <p
+        class="mt-7 max-w-2xl text-lg leading-relaxed text-sage-200"
+        data-reveal
+        style="--reveal-delay: 200ms"
+      >
+        Every article is written by the team, dated, reviewed for accuracy, and free of filler. If
+        a topic isn't covered yet, ask us, it probably becomes the next guide.
+      </p>
+      <p
+        class="mt-9 flex flex-wrap gap-x-6 gap-y-2 border-t border-white/15 pt-6 text-[0.85rem] font-medium text-sage-200"
+        data-reveal
+        style="--reveal-delay: 350ms"
+      >
+        <span class="flex items-center gap-1.5">
+          <Icon name="document" size={14} class="text-gold-200" />
+          {articles.length} guides
+        </span>
+        <span class="flex items-center gap-1.5">
+          <Icon name="check" size={14} class="text-gold-200" /> Written by the team
+        </span>
+        <span class="flex items-center gap-1.5">
+          <Icon name="check" size={14} class="text-gold-200" /> Reviewed for accuracy
+        </span>
+      </p>
     </div>
   </section>
 
+  <!-- ============ LATEST GUIDE ============ -->
+  {
+    latest && (
+      <section class="bg-texture bg-mist-50">
+        <div class="container-site py-24 sm:py-28">
+          <a
+            href={`/resources/${latest.id}`}
+            class="group grid overflow-hidden rounded-[1.75rem] border border-line-100 bg-white shadow-card transition-all duration-300 hover:border-sage-200 hover:shadow-card-hover lg:grid-cols-[0.9fr_1.1fr]"
+            data-reveal
+          >
+            <div class="bg-glow-dark flex flex-col justify-between gap-10 bg-pine-950 p-8 sm:p-10">
+              <p class="eyebrow eyebrow-rule text-gold-200">Latest guide</p>
+              <p class="font-display text-[1.6rem] font-extrabold uppercase leading-[1.05] tracking-[-0.015em] text-white sm:text-[2rem]">
+                {latest.data.category}
+              </p>
+            </div>
+            <div class="flex flex-col p-8 sm:p-10">
+              <div class="flex items-center gap-3 text-[0.75rem] font-semibold">
+                <span class="rounded-full border border-sage-200/80 bg-white px-3 py-1 uppercase tracking-[0.08em] text-pine-800">
+                  {latest.data.category}
+                </span>
+                <time datetime={latest.data.publishDate.toISOString()} class="text-ink-500">
+                  {formatDate(latest.data.publishDate)}
+                </time>
+              </div>
+              <h2 class="mt-5 text-2xl font-extrabold leading-snug text-ink-950 group-hover:text-pine-800 sm:text-[1.75rem]">
+                {latest.data.title}
+              </h2>
+              <p class="mt-3 flex-1 leading-relaxed text-ink-600">{latest.data.description}</p>
+              <span class="mt-8 inline-flex items-center gap-1.5 border-t border-line-100 pt-5 text-[0.82rem] font-semibold uppercase tracking-[0.1em] text-pine-700">
+                Read the guide
+                <Icon
+                  name="arrow-right"
+                  size={15}
+                  class="transition-transform duration-200 motion-safe:group-hover:translate-x-0.5"
+                />
+              </span>
+            </div>
+          </a>
+        </div>
+      </section>
+    )
+  }
+
+  <!-- ============ ALL GUIDES BY TOPIC ============ -->
   <section class="bg-white">
-    <div class="container-site py-16 sm:py-20">
+    <div class="container-site py-24 sm:py-28">
       {
-        categories.map((category) => {
+        categories.map((category, ci) => {
           const items = articles.filter((a) => a.data.category === category);
           return (
-            <div class="mb-14 last:mb-0">
-              <h2 class="mb-6 text-xl font-bold text-ink-950">{category}</h2>
+            <div class="mb-16 last:mb-0">
+              <div class="mb-8 flex flex-wrap items-baseline justify-between gap-3 border-b border-line-100 pb-5">
+                <h2 class="flex items-baseline gap-4 text-[1.5rem] font-extrabold text-ink-950">
+                  <span class="font-display text-sm font-bold tracking-[0.12em] text-sage-400">
+                    0{ci + 1}
+                  </span>
+                  {category}
+                </h2>
+                <span class="text-[0.8rem] font-semibold uppercase tracking-[0.1em] text-ink-500">
+                  {items.length} {items.length === 1 ? 'guide' : 'guides'}
+                </span>
+              </div>
               <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
                 {items.map((article, i) => (
                   <ArticleCard
@@ -53,6 +141,23 @@ const categories = [...new Set(articles.map((a) => a.data.category))];
           );
         })
       }
+      <div
+        class="mt-16 flex flex-col items-start justify-between gap-6 rounded-[1.5rem] border border-line-100 bg-mist-50 p-8 sm:flex-row sm:items-center"
+        data-reveal
+      >
+        <div>
+          <p class="font-display text-lg font-extrabold uppercase tracking-[-0.01em] text-ink-950">
+            Can't find your question?
+          </p>
+          <p class="mt-1.5 text-[0.95rem] text-ink-600">
+            Ask us directly, unanswered questions have a habit of becoming our next guide.
+          </p>
+        </div>
+        <Button href="/contact" variant="secondary" class="shrink-0">
+          Ask a question
+          <Icon name="arrow-right" size={15} />
+        </Button>
+      </div>
     </div>
   </section>
 

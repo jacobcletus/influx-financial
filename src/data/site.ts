@@ -12,23 +12,44 @@
 
 export const site = {
   name: 'Influx Financial',
-  legalName: 'Influx Financial', // [OWNER TO CONFIRM: registered legal entity name]
+  legalName: 'Influx Group Pty Ltd',
   tagline: 'Making first homes happen',
   url: 'https://influxfinancial.com.au',
   description:
     'Influx Financial is a Melbourne-based mortgage broking, lending and accounting business helping Australians compare home loans from a wide panel of lenders.',
 
   contact: {
-    phone: '03 7047 9370',
-    phoneHref: 'tel:+61370479370',
-    // A second number (0488 705 689) appeared on the old About page.
-    // [OWNER TO CONFIRM: is 0488 705 689 a current business mobile? Publish or remove.]
+    phone: '0488 705 689',
+    phoneHref: 'tel:+61488705689',
     email: 'admin@influxfinancial.com.au',
     emailHref: 'mailto:admin@influxfinancial.com.au',
-    address: null as string | null, // [OWNER TO CONFIRM: public office address, or confirm service-only business]
+    // Head-office address, used for footer NAP and LocalBusiness schema.
+    address: 'Level 3, 21 Cityside Drive, Mickleham VIC 3064',
     serviceArea: 'Melbourne and across Victoria, with remote appointments Australia-wide',
-    hours: null as string | null, // [OWNER TO CONFIRM: business hours]
+    hours: null as string | null, // [OWNER TO CONFIRM: business hours for each office]
   },
+
+  /** Physical office locations. The first entry is the head office. */
+  offices: [
+    {
+      name: 'Mickleham (Head Office)',
+      building: 'Waterman Merrifield',
+      address: 'Level 3, 21 Cityside Drive',
+      suburb: 'Mickleham VIC 3064',
+      phone: '(03) 8782 3777',
+      phoneHref: 'tel:+61387823777',
+      mapQuery: 'Waterman Merrifield, 21 Cityside Drive, Mickleham VIC 3064',
+    },
+    {
+      name: 'Croydon',
+      building: null as string | null,
+      address: 'Level 1, 39-41 Hewish Road',
+      suburb: 'Croydon VIC 3136',
+      phone: '(03) 9056 3899',
+      phoneHref: 'tel:+61390563899',
+      mapQuery: '39-41 Hewish Road, Croydon VIC 3136',
+    },
+  ],
 
   social: {
     facebook: 'https://www.facebook.com/people/Influx-Financial/61572697751092/',
@@ -48,17 +69,17 @@ export const site = {
       value: 70,
       suffix: '+',
       label: 'lenders on our panel',
-      verified: false, // [OWNER TO CONFIRM: lender panel size]
+      verified: true,
     },
     {
-      value: 1500,
+      value: 2500,
       suffix: '+',
       label: 'clients supported',
-      verified: false, // [OWNER TO CONFIRM: client count]
+      verified: true,
     },
   ],
 
-  /** Announcement bar — set `enabled: false` to hide site-wide. */
+  /** Announcement bar, set `enabled: false` to hide site-wide. */
   announcement: {
     enabled: true,
     text: 'Free 30-minute tax and mortgage consultation',
@@ -76,11 +97,16 @@ export const site = {
   },
 
   regulatory: {
-    // NEVER publish licence details until verified against the ASIC register.
-    abn: null as string | null, // [OWNER TO CONFIRM: ABN]
-    creditLicence: null as string | null, // [OWNER TO CONFIRM: Australian Credit Licence or Credit Representative number, and the licensee it sits under]
-    memberships: [] as string[], // [OWNER TO CONFIRM: e.g. MFAA or FBAA membership, AFCA membership number]
-    afcaMember: null as boolean | null, // [OWNER TO CONFIRM: AFCA membership — required for credit assistance providers]
+    abn: '91 683 134 367',
+    aggregator: 'Australian Finance Group (AFG)',
+    // Jose Poly is an Authorised Credit Representative operating under AFG's
+    // Australian Credit Licence (ACL 389087 is held by Australian Finance Group Ltd).
+    creditRepName: 'Jose Poly',
+    creditRepNumber: '566032',
+    acl: '389087',
+    aclHolder: 'Australian Finance Group Ltd',
+    memberships: [] as string[], // [OWNER TO CONFIRM: per-person MFAA membership numbers — owner to provide]
+    afcaMember: null as boolean | null, // [OWNER TO CONFIRM: AFCA membership number — owner to provide]
   },
 
   analytics: {

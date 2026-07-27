@@ -183,7 +183,7 @@ export default function Header({
       >
         <nav className="container-site flex items-center justify-between gap-4" aria-label="Main">
           {/* Logo */}
-          <a href="/" className="flex shrink-0 items-center" aria-label="Influx Financial — home">
+          <a href="/" className="flex shrink-0 items-center" aria-label="Influx Financial, home">
             <img
               src="/images/influx-logo-dark.png"
               alt="Influx Financial"
@@ -488,9 +488,9 @@ export default function Header({
             })}
           </ul>
 
-          {/* Persistent CTA */}
+          {/* Persistent CTA, solid backdrop so the nav list never shows through */}
           <div
-            className={`sticky bottom-4 mt-6 space-y-2.5 transition-all duration-300 motion-reduce:transition-none ${
+            className={`sticky bottom-0 -mx-5 mt-6 space-y-2.5 bg-gradient-to-t from-white via-white to-transparent px-5 pb-4 pt-8 transition-all duration-300 motion-reduce:transition-none ${
               mobileOpen ? 'translate-y-0 opacity-100' : 'translate-y-2 opacity-0'
             }`}
             style={mobileOpen ? { transitionDelay: '360ms' } : undefined}

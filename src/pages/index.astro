@@ -9,7 +9,6 @@ import TeamCard from '@/components/ui/TeamCard.astro';
 import ArticleCard from '@/components/ui/ArticleCard.astro';
 import ProcessSteps from '@/components/sections/ProcessSteps.astro';
 import TrustBar from '@/components/sections/TrustBar.astro';
-import Testimonials from '@/components/sections/Testimonials.astro';
 import ConsultationCTA from '@/components/sections/ConsultationCTA.astro';
 import FAQAccordion from '@/components/ui/FAQAccordion.astro';
 import { site } from '@/data/site';
@@ -26,12 +25,12 @@ const caseStudies = (await getCollection('caseStudies')).filter(
 
 const brokerFaqs = (await getEntry('faqs', 'working-with-a-broker'))!.data.items.slice(0, 4);
 
-const heroHeading = 'The right loan, found for you — not sold to you';
+const heroHeading = 'The right loan, found for you. Not sold to you';
 const heroWords = heroHeading.split(' ');
 
 /**
  * The "How it works" steps below mirror the service process.
- * [OWNER TO CONFIRM: this five-step process description]
+ * Confirmed accurate by the owner (Jul 2026).
  */
 const processSteps = [
   {
@@ -48,7 +47,7 @@ const processSteps = [
   },
   {
     title: 'Application support',
-    body: 'We prepare, lodge and manage your application — and chase the lender so you don’t have to.',
+    body: 'We prepare, lodge and manage your application, and chase the lender so you don’t have to.',
   },
   {
     title: 'Approval & ongoing support',
@@ -60,7 +59,7 @@ const whyPoints = [
   {
     icon: 'compass',
     title: 'Personalised guidance',
-    body: 'Advice built on your numbers and plans — not a script. You deal with a director, not a call centre.',
+    body: 'Advice built on your numbers and plans, not a script. You deal with a director, not a call centre.',
   },
   {
     icon: 'layers',
@@ -70,7 +69,7 @@ const whyPoints = [
   {
     icon: 'mail',
     title: 'Clear communication',
-    body: 'You’ll always know where your application is up to and what happens next — in plain English.',
+    body: 'You’ll always know where your application is up to and what happens next, in plain English.',
   },
   {
     icon: 'calculator',
@@ -91,24 +90,26 @@ const whyPoints = [
 ---
 
 <BaseLayout
-  title="Influx Financial — Mortgage Brokers & Accountants Melbourne"
-  description="Melbourne mortgage broking, lending and accounting. Influx Financial compares home loans from a wide lender panel — first home buyers, refinancing, investors and business owners. Free consultation."
+  title="Influx Financial, Mortgage Brokers & Accountants Melbourne"
+  description="Melbourne mortgage broking, lending and accounting. Influx Financial compares home loans from a wide lender panel, first home buyers, refinancing, investors and business owners. Free consultation."
   schema={[faqSchema(brokerFaqs)]}
 >
   <!-- ============ HERO ============ -->
-  <section class="relative overflow-hidden bg-mist-50 bg-texture">
+  <section class="bg-glow-dark on-dark relative overflow-hidden bg-pine-950">
     <div
-      class="container-site grid items-center gap-12 py-16 sm:py-20 lg:grid-cols-[1.15fr_0.85fr] lg:py-24"
+      class="container-site relative grid items-center gap-14 py-20 sm:py-24 lg:grid-cols-[1.2fr_0.8fr] lg:py-28"
     >
       <div>
         <p
-          class="mb-5 inline-flex items-center gap-2 rounded-full border border-sage-200 bg-white px-4 py-1.5 text-[0.82rem] font-semibold text-pine-800"
+          class="mb-7 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.07] px-4 py-1.5 text-[0.72rem] font-semibold uppercase tracking-[0.16em] text-mist-100"
           data-reveal
         >
-          <Icon name="key" size={15} />
+          <Icon name="key" size={14} class="text-gold-200" />
           {site.tagline.charAt(0).toUpperCase() + site.tagline.slice(1)}
         </p>
-        <h1 class="max-w-xl text-4xl sm:text-5xl lg:text-[3.4rem]">
+        <h1
+          class="max-w-2xl text-[2.7rem] font-extrabold uppercase leading-[0.98] tracking-[-0.02em] text-white sm:text-6xl lg:text-[4.5rem]"
+        >
           {
             heroWords.map((word, i) => (
               <>
@@ -120,20 +121,20 @@ const whyPoints = [
           }
         </h1>
         <p
-          class="mt-6 max-w-lg text-lg leading-relaxed text-ink-600"
+          class="mt-7 max-w-lg text-lg leading-relaxed text-sage-200"
           data-reveal
           style="--reveal-delay: 350ms"
         >
           Influx Financial is a Melbourne mortgage broking and accounting team. We compare loans
           across a wide panel of lenders for first home buyers, refinancers, investors and business
-          owners — and manage everything through to settlement.
+          owners, and manage everything through to settlement.
         </p>
         <div
-          class="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center"
+          class="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center"
           data-reveal
           style="--reveal-delay: 450ms"
         >
-          <Button href="/book-consultation" size="lg">
+          <Button href="/book-consultation" variant="gold" size="lg">
             Book a Free Consultation
             <Icon
               name="arrow-right"
@@ -141,83 +142,96 @@ const whyPoints = [
               class="transition-transform duration-200 motion-safe:group-hover:translate-x-0.5"
             />
           </Button>
-          <Button href="/services" variant="secondary" size="lg">Explore Our Services</Button>
-        </div>
-        <p class="mt-5 text-[0.92rem] text-ink-600" data-reveal style="--reveal-delay: 550ms">
-          Prefer to talk now? Call
           <a
             href={site.contact.phoneHref}
-            class="font-bold text-pine-800 underline underline-offset-2"
+            class="inline-flex items-center justify-center gap-2 rounded-full border border-white/25 px-7 py-3.5 text-base font-semibold text-white transition-colors hover:bg-white/10"
           >
+            <Icon name="phone" size={17} />
             {site.contact.phone}
           </a>
-        </p>
+        </div>
         <ul
-          class="mt-8 flex flex-wrap gap-x-6 gap-y-2 text-[0.85rem] font-medium text-ink-600"
+          class="mt-10 flex max-w-lg flex-wrap gap-x-6 gap-y-2 border-t border-white/15 pt-6 text-[0.85rem] font-medium text-sage-200"
           data-reveal
           style="--reveal-delay: 620ms"
         >
           <li class="flex items-center gap-1.5">
-            <Icon name="check" size={14} class="text-pine-700" /> No cost to you for most home loans
+            <Icon name="check" size={14} class="text-gold-200" /> No cost to you for most home loans
           </li>
           <li class="flex items-center gap-1.5">
-            <Icon name="check" size={14} class="text-pine-700" /> Broking + accounting, one team
+            <Icon name="check" size={14} class="text-gold-200" /> Broking + accounting, one team
           </li>
           <li class="flex items-center gap-1.5">
-            <Icon name="check" size={14} class="text-pine-700" /> Melbourne based
+            <Icon name="check" size={14} class="text-gold-200" /> Melbourne based
           </li>
         </ul>
       </div>
 
-      <!-- Real team imagery, composed as cards -->
+      <!-- Real team imagery, aligned, chips kept clear of the photos -->
       <div
         class="relative mx-auto hidden w-full max-w-md sm:block"
         data-reveal
         style="--reveal-delay: 250ms"
       >
-        <div class="grid grid-cols-2 items-end gap-4">
-          <figure class="overflow-hidden rounded-2xl border border-line-100 bg-white shadow-card">
+        <div class="grid grid-cols-2 gap-4">
+          <figure class="overflow-hidden rounded-[1.35rem] bg-white shadow-card-hover">
             <img
-              src="/images/team/jose-poly.png"
+              src="/images/team/jose-poly-studio.jpg"
               alt="Jose Poly, Director and Mortgage Broker at Influx Financial"
               width="400"
               height="400"
               class="aspect-square w-full object-cover"
               fetchpriority="high"
             />
-            <figcaption class="px-4 py-3">
+            <figcaption class="px-4 py-3.5">
               <p class="text-sm font-bold text-ink-950">Jose Poly</p>
-              <p class="text-[0.75rem] font-medium text-pine-700">Director & Mortgage Broker</p>
+              <p
+                class="mt-0.5 text-[0.66rem] font-semibold uppercase tracking-[0.08em] text-pine-700"
+              >
+                Director & Mortgage Broker
+              </p>
             </figcaption>
           </figure>
-          <figure
-            class="mb-10 overflow-hidden rounded-2xl border border-line-100 bg-white shadow-card"
-          >
+          <figure class="overflow-hidden rounded-[1.35rem] bg-white shadow-card-hover">
             <img
-              src="/images/team/joe-anto.png"
+              src="/images/team/joe-anto-studio.jpg"
               alt="Joe Anto, Director of Influx Financial and OneHQ Accounting"
               width="400"
               height="400"
               class="aspect-square w-full object-cover"
               fetchpriority="high"
             />
-            <figcaption class="px-4 py-3">
+            <figcaption class="px-4 py-3.5">
               <p class="text-sm font-bold text-ink-950">Joe Anto</p>
-              <p class="text-[0.75rem] font-medium text-pine-700">Director — Accounting</p>
+              <p
+                class="mt-0.5 text-[0.66rem] font-semibold uppercase tracking-[0.08em] text-pine-700"
+              >
+                Director, Accounting
+              </p>
             </figcaption>
           </figure>
         </div>
-        <div
-          class="absolute -bottom-3 left-1/2 flex -translate-x-1/2 items-center gap-2.5 rounded-full border border-sage-200 bg-white py-2 pl-3 pr-5 shadow-card"
-        >
-          <span
-            class="flex h-8 w-8 items-center justify-center rounded-full bg-pine-700 text-white"
-          >
-            <Icon name="users" size={16} />
-          </span>
-          <span class="text-[0.82rem] font-semibold text-ink-900">
-            Meet the directors you'll actually deal with
-          </span>
+        <div class="mt-5 flex flex-wrap items-center justify-center gap-3">
+          <div class="flex items-center gap-2.5 rounded-full bg-white py-2 pl-3 pr-5 shadow-card">
+            <span
+              class="flex h-7 w-7 items-center justify-center rounded-full bg-pine-800 text-white"
+            >
+              <Icon name="layers" size={14} />
+            </span>
+            <span class="whitespace-nowrap text-[0.8rem] font-bold text-ink-950">
+              70+ lenders <span class="font-medium text-ink-500">on our panel</span>
+            </span>
+          </div>
+          <div class="flex items-center gap-2.5 rounded-full bg-white py-2 pl-3 pr-5 shadow-card">
+            <span
+              class="flex h-7 w-7 items-center justify-center rounded-full bg-gold-400 text-pine-950"
+            >
+              <Icon name="users" size={14} />
+            </span>
+            <span class="whitespace-nowrap text-[0.8rem] font-semibold text-ink-900">
+              The directors you'll actually deal with
+            </span>
+          </div>
         </div>
       </div>
     </div>
@@ -226,14 +240,43 @@ const whyPoints = [
   <!-- ============ TRUST BAR ============ -->
   <TrustBar />
 
+  <!-- ============ STATEMENT ============ -->
+  <section class="bg-texture bg-mist-50">
+    <div class="container-site py-24 sm:py-28">
+      <figure class="relative overflow-hidden rounded-[1.75rem] shadow-card-hover" data-reveal>
+        <img
+          src="/images/proper-house.jpg"
+          alt="Modern two-storey home with glass balustrades and landscaped entry"
+          width="1600"
+          height="1000"
+          loading="lazy"
+          class="aspect-[4/5] w-full object-cover sm:aspect-[16/9] lg:aspect-[2/1]"
+        />
+        <div
+          aria-hidden="true"
+          class="absolute inset-0 bg-gradient-to-t from-pine-950/85 via-pine-950/35 to-pine-950/20"
+        >
+        </div>
+        <figcaption class="absolute inset-0 flex items-end justify-center p-8 sm:p-12">
+          <p
+            class="font-display max-w-3xl text-center text-[1.7rem] font-extrabold uppercase leading-[1.08] tracking-[-0.015em] text-white sm:text-[2.4rem] lg:text-[2.8rem]"
+          >
+            Compare widely. Structure smartly.
+            <span class="text-gold-200">Settle with confidence.</span>
+          </p>
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
   <!-- ============ SERVICES OVERVIEW ============ -->
   <section class="bg-white">
-    <div class="container-site py-20 sm:py-24">
+    <div class="container-site py-24 sm:py-28">
       <div class="flex flex-wrap items-end justify-between gap-6">
         <SectionHeader
           eyebrow="What we do"
           heading="Lending and accounting, matched to the moment you're in"
-          lede="From a first deposit to a business premises — each service has its own specialists, process and detailed guide."
+          lede="From a first deposit to a business premises, each service has its own specialists, process and detailed guide."
         />
         <Button href="/services" variant="secondary" class="mb-1 hidden sm:inline-flex">
           All services
@@ -262,15 +305,19 @@ const whyPoints = [
   </section>
 
   <!-- ============ FIRST HOME BUYER FEATURE ============ -->
-  <section class="bg-pine-950 bg-texture-dark on-dark">
-    <div class="container-site grid items-center gap-12 py-20 sm:py-24 lg:grid-cols-2">
+  <section class="bg-glow-dark on-dark bg-pine-950">
+    <div class="container-site grid items-center gap-12 py-24 sm:py-28 lg:grid-cols-2">
       <div data-reveal>
-        <p class="mb-3 text-[0.8rem] font-bold uppercase tracking-[0.14em] text-gold-200">
+        <p
+          class="eyebrow mb-5 rounded-full border border-white/15 bg-white/[0.07] px-3.5 py-1.5 text-gold-200"
+        >
           Making first homes happen
         </p>
-        <h2 class="text-3xl text-white sm:text-4xl">First home? We've made this trip before.</h2>
+        <h2 class="text-[2.1rem] font-extrabold text-white sm:text-[2.6rem] lg:text-[2.9rem]">
+          First home? We've made this trip before.
+        </h2>
         <p class="mt-4 text-lg leading-relaxed text-sage-200">
-          Deposits, schemes, pre-approval, auctions — the first purchase is the one with the most
+          Deposits, schemes, pre-approval, auctions, the first purchase is the one with the most
           jargon and the highest stakes. We turn it into a step-by-step plan built on your real
           numbers, and stay beside you until the keys are in your hand.
         </p>
@@ -296,12 +343,12 @@ const whyPoints = [
         </div>
       </div>
       <div
-        class="rounded-2xl border border-white/10 bg-white/5 p-7 sm:p-8"
+        class="rounded-[1.35rem] border border-white/10 bg-white/[0.06] p-7 shadow-card-hover backdrop-blur-sm sm:p-9"
         data-reveal
         style="--reveal-delay: 150ms"
       >
-        <p class="text-sm font-bold uppercase tracking-wider text-sage-300">The journey</p>
-        <ol class="mt-5 space-y-4">
+        <p class="eyebrow text-sage-300">The journey</p>
+        <ol class="mt-6 space-y-5">
           {
             [
               'Free consultation & budget',
@@ -311,7 +358,7 @@ const whyPoints = [
               'Formal approval & settlement',
             ].map((step, i) => (
               <li class="flex items-center gap-4">
-                <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white/10 text-sm font-bold text-gold-200">
+                <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-gold-200/40 text-sm font-bold text-gold-200">
                   {i + 1}
                 </span>
                 <span class="font-medium text-mist-100">{step}</span>
@@ -325,7 +372,7 @@ const whyPoints = [
 
   <!-- ============ HOW IT WORKS ============ -->
   <section class="bg-white">
-    <div class="container-site grid gap-12 py-20 sm:py-24 lg:grid-cols-[0.9fr_1.1fr]">
+    <div class="container-site grid gap-12 py-24 sm:py-28 lg:grid-cols-[0.9fr_1.1fr]">
       <div>
         <SectionHeader
           eyebrow="How it works"
@@ -345,7 +392,7 @@ const whyPoints = [
 
   <!-- ============ WHY INFLUX ============ -->
   <section class="bg-mist-50">
-    <div class="container-site py-20 sm:py-24">
+    <div class="container-site py-24 sm:py-28">
       <SectionHeader
         eyebrow="Why Influx"
         heading="Built to be the last broker you need to find"
@@ -355,15 +402,15 @@ const whyPoints = [
         {
           whyPoints.map((point, i) => (
             <div
-              class="spotlight-card rounded-2xl border border-line-100 bg-white p-6 shadow-card"
+              class="spotlight-card rounded-2xl border border-line-100 bg-white p-7 shadow-card"
               data-reveal
               style={`--reveal-delay: ${i * 50}ms`}
             >
-              <span class="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-mist-100 text-pine-700">
-                <Icon name={point.icon} size={22} />
+              <span class="mb-5 flex h-12 w-12 items-center justify-center rounded-full border border-sage-200/80 bg-white text-pine-700">
+                <Icon name={point.icon} size={21} />
               </span>
-              <h3 class="text-lg font-bold text-ink-950">{point.title}</h3>
-              <p class="mt-1.5 text-[0.92rem] leading-relaxed text-ink-600">{point.body}</p>
+              <h3 class="text-[1.12rem] font-bold text-ink-950">{point.title}</h3>
+              <p class="mt-2 text-[0.92rem] leading-relaxed text-ink-600">{point.body}</p>
             </div>
           ))
         }
@@ -373,12 +420,12 @@ const whyPoints = [
 
   <!-- ============ TEAM ============ -->
   <section class="bg-white">
-    <div class="container-site py-20 sm:py-24">
+    <div class="container-site py-24 sm:py-28">
       <div class="flex flex-wrap items-end justify-between gap-6">
         <SectionHeader
           eyebrow="Your team"
           heading="Two directors, one conversation"
-          lede="Lending on one side, accounting on the other — and you get both."
+          lede="Lending on one side, accounting on the other, and you get both."
         />
         <Button href="/team" variant="secondary" class="mb-1">
           Meet the team
@@ -405,12 +452,15 @@ const whyPoints = [
   <!-- ============ CLIENT STORY ============ -->
   <section class="bg-white">
     <div class="container-site pb-20 sm:pb-24">
-      <div class="rounded-3xl border border-line-100 bg-mist-50 p-8 sm:p-12" data-reveal>
+      <div
+        class="bg-texture rounded-[1.75rem] border border-line-100 bg-mist-50 p-8 sm:p-12"
+        data-reveal
+      >
         {
           caseStudies.length > 0 ? (
             <div class="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center">
               <div>
-                <p class="mb-3 text-[0.8rem] font-bold uppercase tracking-[0.14em] text-pine-700">
+                <p class="eyebrow mb-5 rounded-full border border-pine-800/15 bg-white px-3.5 py-1.5 text-pine-700">
                   Client story
                 </p>
                 <h2 class="text-2xl sm:text-3xl">{caseStudies[0].data.title}</h2>
@@ -428,13 +478,13 @@ const whyPoints = [
           ) : (
             <div class="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center">
               <div>
-                <p class="mb-3 text-[0.8rem] font-bold uppercase tracking-[0.14em] text-pine-700">
+                <p class="eyebrow mb-5 rounded-full border border-pine-800/15 bg-white px-3.5 py-1.5 text-pine-700">
                   Client stories
                 </p>
                 <h2 class="text-2xl sm:text-3xl">Real outcomes, told properly</h2>
                 <p class="mt-3 max-w-2xl text-ink-600">
-                  We're preparing de-identified client stories — the challenge, the approach and the
-                  verified outcome — with each client's consent. No manufactured success stories,
+                  We're preparing de-identified client stories, the challenge, the approach and the
+                  verified outcome, with each client's consent. No manufactured success stories,
                   ever.
                 </p>
               </div>
@@ -449,12 +499,9 @@ const whyPoints = [
     </div>
   </section>
 
-  <!-- ============ TESTIMONIALS ============ -->
-  <Testimonials />
-
   <!-- ============ FAQ ============ -->
   <section class="bg-white">
-    <div class="container-site grid gap-12 py-20 sm:py-24 lg:grid-cols-[0.9fr_1.1fr]">
+    <div class="container-site grid gap-12 py-24 sm:py-28 lg:grid-cols-[0.9fr_1.1fr]">
       <div>
         <SectionHeader
           eyebrow="Questions"
@@ -476,7 +523,7 @@ const whyPoints = [
 
   <!-- ============ RESOURCES ============ -->
   <section class="bg-mist-50">
-    <div class="container-site py-20 sm:py-24">
+    <div class="container-site py-24 sm:py-28">
       <div class="flex flex-wrap items-end justify-between gap-6">
         <SectionHeader
           eyebrow="Resources"

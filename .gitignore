@@ -26,3 +26,9 @@ pnpm-debug.log*
 
 # Cloudflare
 .wrangler/
+
+# preview/scratch artifacts (not part of the site)
+*.zip
+website-preview*
+_to_delete/
+zijOMypT

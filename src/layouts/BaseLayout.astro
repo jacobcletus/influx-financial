@@ -96,7 +96,7 @@ const path = Astro.url.pathname;
         pending.forEach((el) => io.observe(el));
 
         // Fallback: manual viewport check on scroll/resize (timer-based
-        // throttle — works even where rAF/IO callbacks are throttled).
+        // throttle, works even where rAF/IO callbacks are throttled).
         let queued: ReturnType<typeof setTimeout> | null = null;
         const check = () => {
           queued = null;

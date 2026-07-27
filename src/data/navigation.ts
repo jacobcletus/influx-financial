@@ -89,6 +89,12 @@ export const servicesMenu: ServiceNavGroup[] = [
         icon: 'truck',
       },
       {
+        label: 'Vehicle Finance',
+        href: '/services/vehicle-finance',
+        description: 'Cars, utes and vans, personal and business',
+        icon: 'car',
+      },
+      {
         label: 'Self-Employed Loans',
         href: '/services/self-employed-loans',
         description: 'Lending that understands business income',
@@ -113,6 +119,7 @@ export const footerNav = {
     { label: 'Construction Loans', href: '/services/construction-loans' },
     { label: 'Commercial Loans', href: '/services/commercial-loans' },
     { label: 'Asset Finance', href: '/services/asset-finance' },
+    { label: 'Vehicle Finance', href: '/services/vehicle-finance' },
     { label: 'Self-Employed Loans', href: '/services/self-employed-loans' },
     { label: 'Debt Consolidation', href: '/services/debt-consolidation' },
     { label: 'Accounting & Tax', href: '/services/accounting-tax' },

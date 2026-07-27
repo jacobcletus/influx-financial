@@ -35,8 +35,8 @@ const SERVICES = [
 const TIMEFRAMES = [
   'As soon as possible',
   'Within 3 months',
-  '3–6 months',
-  '6–12 months',
+  '3 to 6 months',
+  '6 to 12 months',
   'Just researching',
 ];
 
@@ -137,11 +137,11 @@ export default function EnquiryForm({ variant, turnstileSiteKey }: EnquiryFormPr
   if (status === 'success') {
     return (
       <div className="rounded-2xl border border-sage-200 bg-mist-100 p-8 text-center" role="status">
-        <p className="text-xl font-bold text-pine-900">Thanks — we've got your enquiry.</p>
+        <p className="text-xl font-bold text-pine-900">Thanks, we've got your enquiry.</p>
         <p className="mt-2 text-ink-600">
           One of the team will be in touch within one business day. If it's urgent, call us on{' '}
-          <a href="tel:+61370479370" className="font-semibold text-pine-800 underline">
-            03 7047 9370
+          <a href="tel:+61488705689" className="font-semibold text-pine-800 underline">
+            0488 705 689
           </a>
           .
         </p>
@@ -173,7 +173,7 @@ export default function EnquiryForm({ variant, turnstileSiteKey }: EnquiryFormPr
         )}
       </div>
 
-      {/* Honeypot — hidden from real users */}
+      {/* Honeypot, hidden from real users */}
       <div className="hidden" aria-hidden="true">
         <label htmlFor={`${variant}-website`}>Leave this field empty</label>
         <input

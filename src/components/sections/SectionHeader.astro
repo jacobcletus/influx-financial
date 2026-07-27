@@ -5,7 +5,7 @@ interface Props {
   lede?: string;
   align?: 'left' | 'center';
   dark?: boolean;
-  /** Heading level — use "h1" when this is the page's main heading. */
+  /** Heading level, use "h1" when this is the page's main heading. */
   as?: 'h1' | 'h2';
   class?: string;
 }
@@ -21,24 +21,26 @@ const {
 ---
 
 <div
-  class={`max-w-2xl ${align === 'center' ? 'mx-auto text-center' : ''} ${className}`}
+  class={`max-w-3xl ${align === 'center' ? 'mx-auto text-center' : ''} ${className}`}
   data-reveal
 >
   {
     eyebrow && (
       <p
-        class={`mb-3 text-[0.8rem] font-bold uppercase tracking-[0.14em] ${dark ? 'text-sage-300' : 'text-pine-700'}`}
+        class={`eyebrow mb-5 rounded-full border px-3.5 py-1.5 ${dark ? 'border-white/15 bg-white/[0.07] text-sage-300' : 'border-pine-800/15 bg-white text-pine-700'}`}
       >
         {eyebrow}
       </p>
     )
   }
-  <Heading class={`text-3xl sm:text-4xl ${dark ? 'text-white' : ''}`}>
+  <Heading
+    class={`text-[2.1rem] font-extrabold sm:text-[2.6rem] lg:text-[2.9rem] ${dark ? 'text-white' : ''}`}
+  >
     {heading}
   </Heading>
   {
     lede && (
-      <p class={`mt-4 text-lg leading-relaxed ${dark ? 'text-sage-200' : 'text-ink-600'}`}>
+      <p class={`mt-5 text-lg leading-relaxed ${dark ? 'text-sage-200' : 'text-ink-600'}`}>
         {lede}
       </p>
     )

@@ -1,18 +1,17 @@
 import { useEffect, useRef, useState } from 'react';
 
-interface StatCounterProps {
-  value: number;
-  suffix?: string;
+interface DuoStatProps {
   label: string;
 }
 
 /**
- * Count-up statistic that animates when scrolled into view.
- * Renders the final value immediately for reduced-motion users
- * and before hydration (the static value is in the HTML).
+ * The "2-in-1" statistic, animated in step with StatCounter: both
+ * digits count up from 0 with the same duration and easing so the
+ * trust bar finishes as one. Renders the final value immediately for
+ * reduced-motion users and before hydration.
  */
-export default function StatCounter({ value, suffix = '', label }: StatCounterProps) {
-  const [display, setDisplay] = useState(value);
+export default function DuoStat({ label }: DuoStatProps) {
+  const [digits, setDigits] = useState<[number, number]>([2, 1]);
   const ref = useRef<HTMLDivElement>(null);
   const started = useRef(false);
 
@@ -31,23 +30,24 @@ export default function StatCounter({ value, suffix = '', label }: StatCounterPr
         const tick = (now: number) => {
           const t = Math.min((now - start) / duration, 1);
           const eased = 1 - Math.pow(1 - t, 3);
-          setDisplay(Math.round(value * eased));
+          setDigits([Math.round(2 * eased), Math.round(1 * eased)]);
           if (t < 1) requestAnimationFrame(tick);
         };
-        setDisplay(0);
+        setDigits([0, 0]);
         requestAnimationFrame(tick);
       },
       { threshold: 0.4 }
     );
     io.observe(el);
     return () => io.disconnect();
-  }, [value]);
+  }, []);
 
   return (
     <div ref={ref} className="text-center">
       <p className="font-display text-[2.9rem] font-extrabold tracking-[-0.02em] text-pine-950 sm:text-[3.4rem]">
-        {display.toLocaleString('en-AU')}
-        <span className="text-pine-600">{suffix}</span>
+        {digits[0]}
+        <span className="text-pine-600">-in-</span>
+        {digits[1]}
       </p>
       <p className="mt-2 text-[0.78rem] font-semibold uppercase tracking-[0.14em] text-ink-500">
         {label}

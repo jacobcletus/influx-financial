@@ -12,7 +12,7 @@ items:
   - question: How much does it cost to use Influx Financial?
     answer: >-
       For most residential home loans, our broking service is provided at no
-      direct cost to you — we are paid a commission by the lender you choose
+      direct cost to you, we are paid a commission by the lender you choose
       once your loan settles. Any commissions and how we are paid are disclosed
       in our Credit Guide and before you apply. Some complex or commercial
       scenarios may involve a fee, which we always agree with you in writing
@@ -21,7 +21,7 @@ items:
     answer: >-
       Your bank can only offer its own products. A broker compares options from
       many lenders, which matters because lenders assess income, deposits and
-      property types differently — the lender that suits your neighbour may
+      property types differently, the lender that suits your neighbour may
       decline your application, and vice versa. We also handle the paperwork
       and follow-ups so you deal with one point of contact.
   - question: Do you only help clients in Melbourne?
@@ -34,5 +34,5 @@ items:
       Influx Financial provides mortgage broking and lending services. OneHQ
       Accounting, led by the same directors, provides accounting and tax
       services. Having both under one roof means your loan strategy and tax
-      position can be considered together — particularly useful for
+      position can be considered together, particularly useful for
       self-employed borrowers and property investors.

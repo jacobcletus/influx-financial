@@ -1,6 +1,6 @@
 ---
 /**
- * Accessible FAQ accordion using native <details>/<summary> —
+ * Accessible FAQ accordion using native <details>/<summary>,
  * keyboard accessible and functional without JavaScript. Animation
  * is pure CSS (::details-content) and respects reduced motion.
  */
@@ -11,7 +11,9 @@ interface Props {
 const { items, class: className = '' } = Astro.props;
 ---
 
-<div class={`divide-y divide-line-100 rounded-2xl border border-line-100 bg-white ${className}`}>
+<div
+  class={`divide-y divide-line-100 rounded-2xl border border-line-100 bg-white shadow-card ${className}`}
+>
   {
     items.map((item) => (
       <details class="faq-item group px-5 sm:px-6">

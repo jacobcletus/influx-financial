@@ -8,15 +8,15 @@ import ConsultationCTA from '@/components/sections/ConsultationCTA.astro';
 import Icon from '@/components/ui/Icon.astro';
 import { getEntry } from 'astro:content';
 
-/** [OWNER TO CONFIRM: this end-to-end process description] */
+/** End-to-end process, confirmed accurate by the owner (Jul 2026). */
 const steps = [
   {
-    title: 'Discovery call — free, 30 minutes',
+    title: 'Discovery call, free, 30 minutes',
     body: 'We talk through your goals, timing and questions. You don’t need documents yet; you leave knowing whether and how we can help, and what happens next.',
   },
   {
     title: 'Financial assessment',
-    body: 'With your consent we review income, commitments, deposit and credit position — and calculate your borrowing range across multiple lenders, not just one.',
+    body: 'With your consent we review income, commitments, deposit and credit position, and calculate your borrowing range across multiple lenders, not just one.',
   },
   {
     title: 'Compare appropriate options',
@@ -54,7 +54,7 @@ const brokerFaqs = (await getEntry('faqs', 'working-with-a-broker'))!.data.items
 ---
 
 <BaseLayout
-  title="How It Works — Working With Influx Financial"
+  title="How It Works, Working With Influx Financial"
   description="The Influx process step by step: discovery call, financial assessment, comparing options, application support, and ongoing reviews after settlement."
 >
   <section class="bg-mist-50 bg-texture">
@@ -70,7 +70,7 @@ const brokerFaqs = (await getEntry('faqs', 'working-with-a-broker'))!.data.items
         <h1 class="text-3xl sm:text-4xl lg:text-[2.75rem]">Five steps, no mystery</h1>
         <p class="mt-5 text-lg leading-relaxed text-ink-600">
           Whether it's a first home, a refinance or a commercial facility, the shape of the process
-          is the same — and you should know it before you commit an hour to anyone.
+          is the same, and you should know it before you commit an hour to anyone.
         </p>
       </div>
     </div>

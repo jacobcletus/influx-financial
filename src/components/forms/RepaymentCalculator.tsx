@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react';
 
 /**
  * Simple principal-and-interest repayment calculator.
- * Estimates only — clearly disclaimed on the page.
+ * Estimates only, clearly disclaimed on the page.
  */
 
 function currency(n: number): string {

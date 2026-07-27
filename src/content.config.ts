@@ -45,7 +45,7 @@ const team = defineCollection({
     order: z.number(),
     image: z.string(),
     imageAlt: z.string(),
-    /** Only publish once verified — never invent qualifications. */
+    /** Only publish once verified, never invent qualifications. */
     qualifications: z.array(z.string()).default([]),
     memberships: z.array(z.string()).default([]),
     bio: z.string(),

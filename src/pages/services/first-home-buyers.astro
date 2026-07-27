@@ -17,7 +17,7 @@ const fhbFaqs = (await getEntry('faqs', 'first-home-buyers'))!.data.items;
 
 /**
  * Government scheme content changes often. Update the entries and the
- * lastReviewed date together — thresholds are deliberately NOT stated
+ * lastReviewed date together, thresholds are deliberately NOT stated
  * here; eligibility is confirmed against current criteria per client.
  */
 const schemesLastReviewed = new Date('2026-07-01');
@@ -32,14 +32,47 @@ const schemes = [
   },
   {
     name: 'Stamp duty exemption or concession (Victoria)',
-    body: 'Eligible first home buyers pay reduced or no stamp duty under certain price thresholds — often worth more than any grant. Thresholds change, so we confirm the current position when you buy.',
+    body: 'Eligible first home buyers pay reduced or no stamp duty under certain price thresholds, often worth more than any grant. Thresholds change, so we confirm the current position when you buy.',
+  },
+];
+
+const prepare = [
+  {
+    icon: 'chart',
+    title: 'A consistent savings pattern',
+    body: 'Lenders like to see your deposit accumulating steadily over at least three months, "genuine savings" in lender language.',
+  },
+  {
+    icon: 'layers',
+    title: 'Tidy debts and limits',
+    body: 'Credit card limits count against you even at zero balance. Reducing limits and clearing buy-now-pay-later accounts lifts borrowing power.',
+  },
+  {
+    icon: 'clock',
+    title: 'Stable income timing',
+    body: 'Past probation in a new role is easier; if you’re planning a job change, let’s sequence it around the purchase.',
+  },
+];
+
+const depositPaths = [
+  {
+    title: 'Pay LMI and buy sooner',
+    body: 'A one-off insurance premium lets you buy with a smaller deposit. Sometimes cheaper than saving for two more years in a rising market, sometimes not. We do that maths with you.',
+  },
+  {
+    title: 'A family guarantor',
+    body: 'A parent’s equity secures part of the loan, reducing or removing the cash deposit and LMI. Real obligations for the guarantor, we brief everyone properly.',
+  },
+  {
+    title: 'Government low-deposit schemes',
+    body: 'Eligible buyers can purchase with as little as a 5% deposit without LMI under the federal scheme, subject to caps and available places. Details below.',
   },
 ];
 
 const mistakes = [
   {
     title: 'Bidding at auction without pre-approval',
-    body: 'Victorian auction purchases are unconditional — no cooling-off, no finance clause. Solid pre-approval and a hard limit come first.',
+    body: 'Victorian auction purchases are unconditional, no cooling-off, no finance clause. Solid pre-approval and a hard limit come first.',
   },
   {
     title: 'Maxing out the budget on day one',
@@ -55,7 +88,7 @@ const mistakes = [
   },
   {
     title: 'Forgetting the upfront costs',
-    body: 'Conveyancing, inspections, insurance and moving costs land before and at settlement — they belong in the savings target.',
+    body: 'Conveyancing, inspections, insurance and moving costs land before and at settlement, they belong in the savings target.',
   },
   {
     title: 'Skipping contract review',
@@ -87,24 +120,39 @@ const pageUrl = `${site.url}/services/first-home-buyers`;
     faqSchema(fhbFaqs),
   ]}
 >
-  <!-- Hero -->
-  <section class="bg-pine-950 bg-texture-dark on-dark">
-    <div class="container-site py-16 sm:py-20">
-      <Breadcrumbs
-        items={[
-          { name: 'Services', href: '/services' },
-          { name: 'First Home Buyers', href: '/services/first-home-buyers' },
-        ]}
-        class="mb-6 text-sage-300"
-      />
-      <div class="max-w-3xl">
-        <p class="mb-3 text-[0.8rem] font-bold uppercase tracking-[0.14em] text-gold-200">
+  <!-- ============ HERO ============ -->
+  <section class="bg-glow-dark on-dark bg-pine-950">
+    <div
+      class="container-site grid items-center gap-14 py-16 sm:py-20 lg:grid-cols-[1.15fr_0.85fr] lg:py-24"
+    >
+      <div>
+        <Breadcrumbs
+          items={[
+            { name: 'Services', href: '/services' },
+            { name: 'First Home Buyers', href: '/services/first-home-buyers' },
+          ]}
+          class="mb-8 text-sage-300"
+        />
+        <p
+          class="eyebrow mb-6 rounded-full border border-white/15 bg-white/[0.07] px-3.5 py-1.5 text-gold-200"
+          data-reveal
+        >
           Making first homes happen
         </p>
-        <h1 class="text-3xl text-white sm:text-4xl lg:text-[2.75rem]">{service.data.h1}</h1>
-        <p class="mt-5 text-lg leading-relaxed text-sage-200">{service.data.intro}</p>
-        <div class="mt-8 flex flex-col gap-3 sm:flex-row">
-          <Button href="/book-consultation" variant="inverse" size="lg">
+        <h1
+          class="max-w-2xl text-[2.2rem] font-extrabold uppercase leading-[1.02] tracking-[-0.02em] text-white sm:text-5xl lg:text-[3.4rem]"
+        >
+          {service.data.h1}
+        </h1>
+        <p
+          class="mt-7 max-w-xl text-lg leading-relaxed text-sage-200"
+          data-reveal
+          style="--reveal-delay: 200ms"
+        >
+          {service.data.intro}
+        </p>
+        <div class="mt-9 flex flex-col gap-3 sm:flex-row" data-reveal style="--reveal-delay: 350ms">
+          <Button href="/book-consultation" variant="gold" size="lg">
             Book a Free Consultation
             <Icon name="arrow-right" size={17} />
           </Button>
@@ -117,112 +165,121 @@ const pageUrl = `${site.url}/services/first-home-buyers`;
           </a>
         </div>
       </div>
-    </div>
-  </section>
 
-  <!-- What to prepare / deposit -->
-  <section class="bg-white">
-    <div class="container-site grid gap-12 py-16 sm:py-20 lg:grid-cols-2">
-      <div data-reveal>
-        <h2 class="text-2xl sm:text-3xl">What to prepare before you start</h2>
-        <p class="mt-4 leading-relaxed text-ink-600">
-          The buyers who move fastest are the ones whose paperwork and savings story are ready
-          before the right listing appears. Three things matter most:
-        </p>
-        <ul class="mt-6 space-y-4">
-          <li class="flex gap-3.5">
-            <span
-              class="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-mist-100 text-pine-700"
-            >
-              <Icon name="chart" size={18} />
-            </span>
-            <div>
-              <h3 class="font-bold text-ink-950">A consistent savings pattern</h3>
-              <p class="text-[0.95rem] text-ink-600">
-                Lenders like to see your deposit accumulating steadily over at least three months —
-                "genuine savings" in lender language.
-              </p>
-            </div>
-          </li>
-          <li class="flex gap-3.5">
-            <span
-              class="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-mist-100 text-pine-700"
-            >
-              <Icon name="layers" size={18} />
-            </span>
-            <div>
-              <h3 class="font-bold text-ink-950">Tidy debts and limits</h3>
-              <p class="text-[0.95rem] text-ink-600">
-                Credit card limits count against you even at zero balance. Reducing limits and
-                clearing buy-now-pay-later accounts lifts borrowing power.
-              </p>
-            </div>
-          </li>
-          <li class="flex gap-3.5">
-            <span
-              class="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-mist-100 text-pine-700"
-            >
-              <Icon name="clock" size={18} />
-            </span>
-            <div>
-              <h3 class="font-bold text-ink-950">Stable income timing</h3>
-              <p class="text-[0.95rem] text-ink-600">
-                Past probation in a new role is easier; if you're planning a job change, let's
-                sequence it around the purchase.
-              </p>
-            </div>
-          </li>
-        </ul>
-      </div>
-      <div data-reveal style="--reveal-delay: 120ms">
-        <h2 class="text-2xl sm:text-3xl">Deposit: what "enough" looks like</h2>
-        <p class="mt-4 leading-relaxed text-ink-600">
-          Twenty percent avoids lenders mortgage insurance — but it's a benchmark, not a rule.
-          Buying with less is common through three main paths:
-        </p>
-        <div class="mt-6 space-y-4">
-          <div class="rounded-xl border border-line-100 bg-mist-50 p-5">
-            <h3 class="font-bold text-ink-950">Pay LMI and buy sooner</h3>
-            <p class="mt-1 text-[0.95rem] text-ink-600">
-              A one-off insurance premium lets you buy with a smaller deposit. Sometimes cheaper
-              than saving for two more years in a rising market — sometimes not. We do that maths
-              with you.
-            </p>
-          </div>
-          <div class="rounded-xl border border-line-100 bg-mist-50 p-5">
-            <h3 class="font-bold text-ink-950">A family guarantor</h3>
-            <p class="mt-1 text-[0.95rem] text-ink-600">
-              A parent's equity secures part of the loan, reducing or removing the cash deposit and
-              LMI. Real obligations for the guarantor — we brief everyone properly.
-            </p>
-          </div>
-          <div class="rounded-xl border border-line-100 bg-mist-50 p-5">
-            <h3 class="font-bold text-ink-950">Government low-deposit schemes</h3>
-            <p class="mt-1 text-[0.95rem] text-ink-600">
-              Eligible buyers can purchase with as little as a 5% deposit without LMI under the
-              federal scheme — subject to caps and available places. Details below.
-            </p>
-          </div>
+      <figure
+        class="relative mx-auto hidden w-full max-w-md overflow-hidden rounded-[1.75rem] shadow-card-hover sm:block"
+        data-reveal
+        style="--reveal-delay: 250ms"
+      >
+        <img
+          src="/images/first-home.jpg"
+          alt="A young couple relaxing together on the balcony of their home"
+          width="900"
+          height="1125"
+          class="aspect-[4/5] w-full object-cover"
+          fetchpriority="high"
+        />
+        <div
+          aria-hidden="true"
+          class="absolute inset-0 bg-gradient-to-t from-pine-950/70 via-transparent to-transparent"
+        >
         </div>
-        <p class="mt-5 text-[0.95rem] text-ink-600">
-          Deep dive: <a
-            href="/resources/how-much-deposit-do-you-need"
-            class="font-semibold text-pine-800 underline underline-offset-2"
-            >how much deposit do you really need?</a
-          >
-        </p>
+        <figcaption class="absolute inset-x-0 bottom-0 p-7">
+          <p class="font-display text-lg font-extrabold uppercase leading-tight text-white">
+            From deposit to keys.
+          </p>
+          <p class="mt-1 text-[0.9rem] font-medium text-mist-100">Beside you for the whole trip.</p>
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ============ WHAT TO PREPARE ============ -->
+  <section class="bg-white">
+    <div class="container-site py-24 sm:py-28">
+      <SectionHeader
+        eyebrow="Get ready"
+        heading="What to prepare before you start"
+        lede="The buyers who move fastest are the ones whose paperwork and savings story are ready before the right listing appears. Three things matter most."
+      />
+      <div class="mt-12 grid gap-5 md:grid-cols-3">
+        {
+          prepare.map((p, i) => (
+            <div
+              class="spotlight-card flex flex-col rounded-2xl border border-line-100 bg-white p-7 shadow-card"
+              data-reveal
+              style={`--reveal-delay: ${i * 70}ms`}
+            >
+              <div class="mb-5 flex items-center justify-between">
+                <span class="flex h-12 w-12 items-center justify-center rounded-full border border-sage-200/80 bg-white text-pine-700">
+                  <Icon name={p.icon} size={21} />
+                </span>
+                <span class="font-display text-sm font-bold tracking-[0.12em] text-sage-400">
+                  0{i + 1}
+                </span>
+              </div>
+              <h3 class="text-[1.08rem] font-bold text-ink-950">{p.title}</h3>
+              <p class="mt-2 text-[0.92rem] leading-relaxed text-ink-600">{p.body}</p>
+            </div>
+          ))
+        }
       </div>
     </div>
   </section>
 
-  <!-- Pre-approval + process -->
-  <section class="bg-mist-50">
-    <div class="container-site grid gap-12 py-16 sm:py-20 lg:grid-cols-[0.9fr_1.1fr]">
+  <!-- ============ DEPOSIT PATHS ============ -->
+  <section class="bg-texture bg-mist-50">
+    <div class="container-site py-24 sm:py-28">
+      <div class="flex flex-wrap items-end justify-between gap-6">
+        <SectionHeader
+          eyebrow="The deposit"
+          heading={'What “enough” actually looks like'}
+          lede="Twenty per cent avoids lenders mortgage insurance, but it's a benchmark, not a rule. Buying with less is common through three main paths."
+        />
+        <Button
+          href="/resources/how-much-deposit-do-you-need"
+          variant="secondary"
+          class="mb-1 hidden sm:inline-flex"
+        >
+          Deposit deep-dive
+          <Icon name="arrow-right" size={15} />
+        </Button>
+      </div>
+      <div class="mt-12 grid gap-5 md:grid-cols-3">
+        {
+          depositPaths.map((path, i) => (
+            <div
+              class="flex flex-col rounded-2xl border border-line-100 bg-white p-7 shadow-card"
+              data-reveal
+              style={`--reveal-delay: ${i * 70}ms`}
+            >
+              <span class="font-display text-sm font-bold tracking-[0.12em] text-pine-600">
+                PATH 0{i + 1}
+              </span>
+              <h3 class="mt-3 border-t border-line-100 pt-4 text-[1.08rem] font-bold text-ink-950">
+                {path.title}
+              </h3>
+              <p class="mt-2 flex-1 text-[0.92rem] leading-relaxed text-ink-600">{path.body}</p>
+            </div>
+          ))
+        }
+      </div>
+      <div class="mt-8 text-center sm:hidden">
+        <Button href="/resources/how-much-deposit-do-you-need" variant="secondary">
+          Deposit deep-dive
+        </Button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PRE-APPROVAL + PROCESS ============ -->
+  <section class="bg-white">
+    <div class="container-site grid gap-12 py-24 sm:py-28 lg:grid-cols-[0.9fr_1.1fr]">
       <div>
         <SectionHeader
           eyebrow="The buying process"
           heading="From first chat to front door"
-          lede="Pre-approval is the hinge of the whole process: a lender's conditional assessment of your borrowing power, valid for around 90 days. Get it before you fall for a property — especially for auctions, which are unconditional in Victoria."
+          lede="Pre-approval is the hinge of the whole process: a lender's conditional assessment of your borrowing power, valid for around 90 days. Get it before you fall for a property, especially for auctions, which are unconditional in Victoria."
         />
         <div class="mt-8" data-reveal>
           <Button href="/resources/what-is-pre-approval" variant="secondary">
@@ -235,66 +292,71 @@ const pageUrl = `${site.url}/services/first-home-buyers`;
     </div>
   </section>
 
-  <!-- Government schemes -->
-  <section class="bg-white">
-    <div class="container-site py-16 sm:py-20">
+  <!-- ============ GOVERNMENT SCHEMES ============ -->
+  <section class="bg-texture bg-mist-50">
+    <div class="container-site py-24 sm:py-28">
       <SectionHeader
         eyebrow="Government help"
         heading="Schemes and grants for first home buyers"
-        lede="Genuine help exists — but every scheme has income caps, property price caps and limited places, and the settings change regularly."
+        lede="Genuine help exists, but every scheme has income caps, property price caps and limited places, and the settings change regularly."
       />
-      <div class="mt-10 grid gap-5 md:grid-cols-3">
+      <div class="mt-12 grid gap-5 md:grid-cols-3">
         {
           schemes.map((scheme, i) => (
             <div
-              class="rounded-2xl border border-line-100 bg-mist-50 p-6"
+              class="flex flex-col rounded-2xl border border-line-100 bg-white p-7 shadow-card"
               data-reveal
               style={`--reveal-delay: ${i * 70}ms`}
             >
-              <h3 class="font-bold text-ink-950">{scheme.name}</h3>
-              <p class="mt-2 text-[0.95rem] leading-relaxed text-ink-600">{scheme.body}</p>
+              <h3 class="font-bold leading-snug text-ink-950">{scheme.name}</h3>
+              <p class="mt-2.5 flex-1 text-[0.92rem] leading-relaxed text-ink-600">{scheme.body}</p>
             </div>
           ))
         }
       </div>
       <div
-        class="mt-8 flex flex-col items-start justify-between gap-4 rounded-2xl border border-sage-200 bg-mist-100 p-6 sm:flex-row sm:items-center"
+        class="bg-glow-dark mt-8 flex flex-col items-start justify-between gap-6 rounded-[1.5rem] bg-pine-950 p-8 sm:flex-row sm:items-center sm:p-9"
         data-reveal
       >
         <div>
-          <p class="font-semibold text-pine-900">
-            We deliberately don't publish thresholds here — they go stale.
+          <p class="font-display text-lg font-extrabold uppercase tracking-[-0.01em] text-white">
+            We deliberately don't publish thresholds, <span class="text-gold-200"
+              >they go stale.</span
+            >
           </p>
-          <p class="mt-1 text-[0.9rem] text-ink-600">
+          <p class="mt-2 max-w-2xl text-[0.95rem] leading-relaxed text-sage-200">
             We check your eligibility against the current official criteria when you're ready.
             Content last reviewed: <time datetime={schemesLastReviewed.toISOString()}
               >{formatDate(schemesLastReviewed)}</time
             >.
           </p>
         </div>
-        <Button href="/book-consultation" class="shrink-0">Check my eligibility</Button>
+        <Button href="/book-consultation" variant="gold" class="shrink-0">
+          Check my eligibility
+        </Button>
       </div>
     </div>
   </section>
 
-  <!-- Common mistakes -->
-  <section class="bg-pine-950 bg-texture-dark on-dark">
-    <div class="container-site py-16 sm:py-20">
-      <SectionHeader
-        eyebrow="Learn from others"
-        heading="Six first-buyer mistakes we see on repeat"
-        dark
-      />
-      <div class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+  <!-- ============ COMMON MISTAKES ============ -->
+  <section class="bg-glow-dark on-dark bg-pine-950">
+    <div class="container-site py-24 sm:py-28">
+      <SectionHeader eyebrow="Learn from others" heading="Six first-buyer mistakes we see on repeat" dark />
+      <div class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {
           mistakes.map((m, i) => (
             <div
-              class="rounded-2xl border border-white/10 bg-white/5 p-6"
+              class="flex flex-col rounded-2xl border border-white/10 bg-white/[0.06] p-7 backdrop-blur-sm"
               data-reveal
               style={`--reveal-delay: ${i * 50}ms`}
             >
-              <h3 class="font-bold text-white">{m.title}</h3>
-              <p class="mt-2 text-[0.92rem] leading-relaxed text-sage-200">{m.body}</p>
+              <span class="font-display text-sm font-bold tracking-[0.12em] text-gold-200">
+                0{i + 1}
+              </span>
+              <h3 class="mt-3 border-t border-white/10 pt-4 font-bold leading-snug text-white">
+                {m.title}
+              </h3>
+              <p class="mt-2 flex-1 text-[0.92rem] leading-relaxed text-sage-200">{m.body}</p>
             </div>
           ))
         }
@@ -302,46 +364,58 @@ const pageUrl = `${site.url}/services/first-home-buyers`;
     </div>
   </section>
 
-  <!-- Documents checklist -->
+  <!-- ============ DOCUMENTS ============ -->
   <section class="bg-white">
-    <div class="container-site grid gap-12 py-16 sm:py-20 lg:grid-cols-2">
-      <div>
+    <div class="container-site py-24 sm:py-28">
+      <div class="flex flex-wrap items-end justify-between gap-6">
         <SectionHeader
           eyebrow="Get ready"
           heading="Your starting documents checklist"
-          lede="This is the typical starter list — we'll give you a personalised one at your consultation."
+          lede="This is the typical starter list, we'll give you a personalised one at your consultation."
         />
-        <ul class="mt-8 space-y-3">
-          {
-            documents.map((doc, i) => (
-              <li
-                class="flex items-center gap-3 rounded-xl border border-line-100 bg-mist-50 px-5 py-3.5 text-[0.98rem] text-ink-700"
-                data-reveal
-                style={`--reveal-delay: ${i * 40}ms`}
-              >
-                <Icon name="document" size={18} class="shrink-0 text-pine-700" />
-                {doc}
-              </li>
-            ))
-          }
-        </ul>
-        <p class="mt-5 text-[0.95rem] text-ink-600" data-reveal>
-          Full guide: <a
-            href="/resources/home-loan-documents-checklist"
-            class="font-semibold text-pine-800 underline underline-offset-2"
-            >the complete home loan documents checklist</a
-          >
-        </p>
+        <Button
+          href="/resources/home-loan-documents-checklist"
+          variant="secondary"
+          class="mb-1 hidden sm:inline-flex"
+        >
+          Full checklist guide
+          <Icon name="arrow-right" size={15} />
+        </Button>
       </div>
-      <div>
-        <SectionHeader eyebrow="FAQs" heading="First home buyer questions" />
-        <div class="mt-8" data-reveal>
-          <FAQAccordion items={fhbFaqs} />
-        </div>
-        <p class="mt-6 text-[0.82rem] leading-relaxed text-ink-500">
-          {generalAdviceDisclaimer}
-        </p>
+      <ul class="mt-12 grid gap-4 sm:grid-cols-2">
+        {
+          documents.map((doc, i) => (
+            <li
+              class="flex items-center gap-4 rounded-2xl border border-line-100 bg-mist-50 px-6 py-5 text-[0.98rem] text-ink-700"
+              data-reveal
+              style={`--reveal-delay: ${i * 40}ms`}
+            >
+              <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-sage-200/80 bg-white text-pine-700">
+                <Icon name="document" size={17} />
+              </span>
+              {doc}
+            </li>
+          ))
+        }
+      </ul>
+      <div class="mt-8 text-center sm:hidden">
+        <Button href="/resources/home-loan-documents-checklist" variant="secondary">
+          Full checklist guide
+        </Button>
       </div>
+    </div>
+  </section>
+
+  <!-- ============ FAQ ============ -->
+  <section class="bg-texture bg-mist-50">
+    <div class="container-site py-24 sm:py-28">
+      <SectionHeader eyebrow="FAQs" heading="First home buyer questions" align="center" />
+      <div class="mx-auto mt-12 max-w-3xl" data-reveal>
+        <FAQAccordion items={fhbFaqs} />
+      </div>
+      <p class="mx-auto mt-8 max-w-2xl text-center text-[0.82rem] leading-relaxed text-ink-500">
+        {generalAdviceDisclaimer}
+      </p>
     </div>
   </section>
 

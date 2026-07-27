@@ -16,6 +16,7 @@
 
 @import 'tailwindcss';
 @import '@fontsource-variable/schibsted-grotesk';
+@import '@fontsource-variable/archivo';
 
 @theme {
   /* --- Colour tokens --- */
@@ -50,6 +51,9 @@
   --font-sans:
     'Schibsted Grotesk Variable', 'Schibsted Grotesk', ui-sans-serif, system-ui, -apple-system,
     'Segoe UI', sans-serif;
+  --font-display:
+    'Archivo Variable', 'Archivo', 'Schibsted Grotesk Variable', ui-sans-serif, system-ui,
+    sans-serif;
 
   --tracking-tightest: -0.035em;
   --tracking-tighter: -0.02em;
@@ -61,10 +65,13 @@
   --radius-xl: 1.5rem;
   --radius-2xl: 2rem;
 
-  /* --- Shadows (restrained) --- */
-  --shadow-card: 0 1px 2px rgb(0 42 35 / 0.04), 0 4px 16px rgb(0 42 35 / 0.05);
-  --shadow-card-hover: 0 2px 4px rgb(0 42 35 / 0.05), 0 12px 32px rgb(0 42 35 / 0.09);
-  --shadow-nav: 0 1px 0 rgb(0 42 35 / 0.05), 0 8px 24px rgb(0 42 35 / 0.06);
+  /* --- Shadows (soft, diffuse — premium restraint) --- */
+  --shadow-card: 0 1px 2px rgb(0 42 35 / 0.03), 0 8px 28px -10px rgb(0 42 35 / 0.09);
+  --shadow-card-hover: 0 2px 4px rgb(0 42 35 / 0.04), 0 20px 48px -16px rgb(0 42 35 / 0.16);
+  --shadow-nav: 0 1px 0 rgb(0 42 35 / 0.04), 0 12px 32px -12px rgb(0 42 35 / 0.08);
+  --shadow-btn:
+    inset 0 1px 0 rgb(255 255 255 / 0.14), 0 1px 2px rgb(0 42 35 / 0.18),
+    0 10px 24px -8px rgb(0 42 35 / 0.35);
 
   /* --- Motion --- */
   --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
@@ -104,9 +111,10 @@
   h2,
   h3,
   h4 {
+    font-family: var(--font-display);
     color: var(--color-ink-950);
-    letter-spacing: var(--tracking-tightest);
-    line-height: 1.12;
+    letter-spacing: var(--tracking-tighter);
+    line-height: 1.08;
     font-weight: 700;
     text-wrap: balance;
   }
@@ -143,15 +151,43 @@
   }
 }
 
-/* Subtle dotted texture for section backgrounds */
+/* Subtle dotted texture for section backgrounds (kept very quiet) */
 @utility bg-texture {
-  background-image: radial-gradient(rgb(0 42 35 / 0.055) 1px, transparent 1px);
-  background-size: 22px 22px;
+  background-image: radial-gradient(rgb(0 42 35 / 0.04) 1px, transparent 1px);
+  background-size: 26px 26px;
 }
 
 @utility bg-texture-dark {
-  background-image: radial-gradient(rgb(255 255 255 / 0.06) 1px, transparent 1px);
-  background-size: 22px 22px;
+  background-image: radial-gradient(rgb(255 255 255 / 0.045) 1px, transparent 1px);
+  background-size: 26px 26px;
+}
+
+/* Soft radial glow for dark pine sections — adds depth without noise */
+@utility bg-glow-dark {
+  background-image:
+    radial-gradient(56rem 32rem at 18% -10%, rgb(10 133 112 / 0.22), transparent 62%),
+    radial-gradient(48rem 30rem at 88% 112%, rgb(1 88 73 / 0.35), transparent 60%);
+}
+
+/* Editorial eyebrow: small caps, letterspaced, hairline rule lead-in */
+@utility eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.72rem;
+  font-weight: 650;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+}
+@utility eyebrow-rule {
+  &::before {
+    content: '';
+    display: inline-block;
+    width: 1.75rem;
+    height: 1px;
+    background: currentColor;
+    opacity: 0.55;
+  }
 }
 
 /* ---------- Scroll-reveal system ----------
