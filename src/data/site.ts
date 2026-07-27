@@ -53,7 +53,7 @@ export const site = {
 
   social: {
     facebook: 'https://www.facebook.com/people/Influx-Financial/61572697751092/',
-    instagram: null as string | null, // [OWNER TO CONFIRM: Instagram profile URL]
+    instagram: 'https://www.instagram.com/influxgroup.au/',
     linkedin: null as string | null, // [OWNER TO CONFIRM: LinkedIn page URL, if any]
     googleBusinessProfile: null as string | null, // [OWNER TO CONFIRM: Google Business Profile link]
   },
