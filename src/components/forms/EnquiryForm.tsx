@@ -49,6 +49,14 @@ const BUYER_TYPES = [
   'Other',
 ];
 
+/**
+ * Formspree endpoint for the "Influx Financial Website Form".
+ * Public by design (Formspree endpoints are meant to live in client code).
+ * Submissions are emailed to the inbox configured in the Formspree
+ * dashboard (jose@influxfinancial.com.au).
+ */
+const FORMSPREE_ENDPOINT = 'https://formspree.io/f/mkodyndq';
+
 type Status = 'idle' | 'submitting' | 'success' | 'error';
 
 declare global {
@@ -114,14 +122,21 @@ export default function EnquiryForm({ variant, turnstileSiteKey }: EnquiryFormPr
     setStatus('submitting');
     try {
       const payload = Object.fromEntries(data.entries());
-      const res = await fetch('/api/contact', {
+      const enquirerName = String(payload.name ?? '').trim();
+      const res = await fetch(FORMSPREE_ENDPOINT, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...payload, formVariant: variant }),
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          ...payload,
+          formVariant: variant,
+          _subject: `New website enquiry${enquirerName ? ` — ${enquirerName}` : ''}`,
+        }),
       });
       if (!res.ok) {
-        const body = (await res.json().catch(() => null)) as { error?: string } | null;
-        throw new Error(body?.error ?? 'Something went wrong sending your enquiry.');
+        const body = (await res.json().catch(() => null)) as {
+          errors?: Array<{ message?: string }>;
+        } | null;
+        throw new Error(body?.errors?.[0]?.message ?? 'Something went wrong sending your enquiry.');
       }
       setStatus('success');
     } catch (err) {
@@ -165,21 +180,22 @@ export default function EnquiryForm({ variant, turnstileSiteKey }: EnquiryFormPr
         {status === 'error' && (
           <p className="mb-4 rounded-lg border border-[#e7b8b5] bg-[#fdf3f2] px-4 py-3 text-[0.9rem] font-medium text-[#8c1d18]">
             {serverError} You can also email us directly at{' '}
-            <a href="mailto:admin@influxfinancial.com.au" className="underline">
-              admin@influxfinancial.com.au
+            <a href="mailto:jose@influxfinancial.com.au" className="underline">
+              jose@influxfinancial.com.au
             </a>
             .
           </p>
         )}
       </div>
 
-      {/* Honeypot, hidden from real users */}
+      {/* Honeypot, hidden from real users. Formspree drops any submission
+          where its reserved "_gotcha" field is filled in. */}
       <div className="hidden" aria-hidden="true">
-        <label htmlFor={`${variant}-website`}>Leave this field empty</label>
+        <label htmlFor={`${variant}-gotcha`}>Leave this field empty</label>
         <input
-          id={`${variant}-website`}
+          id={`${variant}-gotcha`}
           type="text"
-          name="website"
+          name="_gotcha"
           tabIndex={-1}
           autoComplete="off"
         />

@@ -21,8 +21,8 @@ export const site = {
   contact: {
     phone: '0488 705 689',
     phoneHref: 'tel:+61488705689',
-    email: 'admin@influxfinancial.com.au',
-    emailHref: 'mailto:admin@influxfinancial.com.au',
+    email: 'jose@influxfinancial.com.au',
+    emailHref: 'mailto:jose@influxfinancial.com.au',
     // Head-office address, used for footer NAP and LocalBusiness schema.
     address: 'Level 3, 21 Cityside Drive, Mickleham VIC 3064',
     serviceArea: 'Melbourne and across Victoria, with remote appointments Australia-wide',
