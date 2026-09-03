@@ -1,75 +1,63 @@
 ---
 import { site } from '@/data/site';
-import { footerNav } from '@/data/navigation';
 import Icon from '@/components/ui/Icon.astro';
+import AwardBadges from '@/components/ui/AwardBadges.astro';
 
 const year = new Date().getFullYear();
+
+const explore = [
+  { label: 'Services', href: '/services' },
+  { label: 'First Home Buyers', href: '/services/first-home-buyers' },
+  { label: 'Refinancing', href: '/services/refinancing' },
+  { label: 'Why Influx', href: '/why-influx' },
+  { label: 'Resources', href: '/resources' },
+  { label: 'About', href: '/about' },
+];
+
+const legal = [
+  { label: 'Privacy Policy', href: '/privacy-policy' },
+  { label: 'Terms of Use', href: '/terms' },
+  { label: 'Disclaimer', href: '/disclaimer' },
+];
+
+const finalist = site.awards.filter((a) => a.result === 'Finalist');
 ---
 
-<footer class="on-dark bg-pine-950 text-sage-200">
-  <div class="container-site pb-10 pt-16">
-    <div class="grid gap-12 lg:grid-cols-[1.3fr_1fr_1fr_1fr]">
-      <!-- Brand + contact -->
+<footer class="on-dark bg-glow-dark relative isolate overflow-hidden bg-pine-950 text-sage-200">
+  <!-- Oversized brand wordmark, low-opacity, seated flush at the bottom -->
+  <span
+    aria-hidden="true"
+    class="pointer-events-none absolute inset-x-0 -bottom-3 select-none text-center font-display text-[19vw] font-extrabold uppercase leading-none tracking-[-0.05em] text-white/[0.045] sm:-bottom-5"
+  >
+    Influx
+  </span>
+
+  <div class="container-site relative py-20 sm:py-24">
+    <!-- Detail row -->
+    <div class="grid gap-12 lg:grid-cols-[1.5fr_1fr_1.1fr]">
+      <!-- Brand + recognition + social -->
       <div>
-        <a href="/" aria-label="Influx Financial, home">
-          <img
-            src="/images/influx-logo-white.png"
-            alt="Influx Financial"
-            width="1859"
-            height="242"
-            class="h-6 w-auto"
-            loading="lazy"
-          />
-        </a>
-        <p class="mt-4 max-w-xs text-[0.95rem] leading-relaxed text-sage-300">
+        <img
+          src="/images/influx-logo-white.png"
+          alt="Influx Financial"
+          width="1859"
+          height="242"
+          class="h-8 w-auto"
+          loading="lazy"
+        />
+        <p class="mt-6 max-w-xs text-[0.95rem] leading-relaxed text-sage-300">
           Mortgage broking, lending and accounting for {site.contact.serviceArea}.
         </p>
-        <ul class="mt-6 space-y-3 text-[0.95rem]">
-          <li>
-            <a
-              href={site.contact.phoneHref}
-              class="inline-flex items-center gap-2.5 font-semibold text-white transition-colors hover:text-gold-200"
-            >
-              <Icon name="phone" size={17} />
-              {site.contact.phone}
-            </a>
-          </li>
-          <li>
-            <a
-              href={site.contact.emailHref}
-              class="inline-flex items-center gap-2.5 text-sage-200 transition-colors hover:text-gold-200"
-            >
-              <Icon name="mail" size={17} />
-              {site.contact.email}
-            </a>
-          </li>
-        </ul>
-
-        <!-- Offices -->
-        <ul class="mt-6 grid gap-5 sm:grid-cols-2">
-          {
-            site.offices.map((office) => (
-              <li class="flex items-start gap-2.5 text-[0.9rem] text-sage-300">
-                <Icon name="map" size={17} class="mt-0.5 shrink-0 text-sage-400" />
-                <span>
-                  <span class="block font-semibold text-white">{office.name}</span>
-                  {office.building && <span class="block">{office.building}</span>}
-                  {office.address}
-                  <br />
-                  {office.suburb}
-                  <br />
-                  <a
-                    href={office.phoneHref}
-                    class="mt-1 inline-block font-medium text-sage-200 transition-colors hover:text-gold-200"
-                  >
-                    {office.phone}
-                  </a>
-                </span>
-              </li>
-            ))
-          }
-        </ul>
-        <div class="mt-6 flex gap-3">
+        {
+          finalist.length > 0 && (
+            <AwardBadges
+              imgClass="h-16 w-16 ring-1 ring-white/10 sm:h-20 sm:w-20"
+              gap="gap-4"
+              class="mt-7 justify-start"
+            />
+          )
+        }
+        <div class="mt-7 flex gap-3">
           {
             site.social.facebook && (
               <a
@@ -99,14 +87,14 @@ const year = new Date().getFullYear();
         </div>
       </div>
 
-      <!-- Services -->
-      <nav aria-label="Footer, services">
-        <p class="mb-4 text-xs font-bold uppercase tracking-wider text-sage-400">Services</p>
+      <!-- Explore -->
+      <nav aria-label="Footer navigation">
+        <p class="eyebrow eyebrow-rule mb-5 text-sage-400">Explore</p>
         <ul class="space-y-2.5 text-[0.95rem]">
           {
-            footerNav.services.map((link) => (
+            explore.map((link) => (
               <li>
-                <a href={link.href} class="transition-colors hover:text-white">
+                <a href={link.href} class="text-sage-100 transition-colors hover:text-white">
                   {link.label}
                 </a>
               </li>
@@ -115,66 +103,59 @@ const year = new Date().getFullYear();
         </ul>
       </nav>
 
-      <!-- Company -->
-      <nav aria-label="Footer, company">
-        <p class="mb-4 text-xs font-bold uppercase tracking-wider text-sage-400">Company</p>
-        <ul class="space-y-2.5 text-[0.95rem]">
+      <!-- Offices + contact -->
+      <div>
+        <p class="eyebrow eyebrow-rule mb-5 text-sage-400">Offices</p>
+        <ul class="space-y-4 text-[0.9rem] text-sage-300">
           {
-            footerNav.company.map((link) => (
+            site.offices.map((office) => (
               <li>
-                <a href={link.href} class="transition-colors hover:text-white">
-                  {link.label}
+                <span class="block font-semibold text-white">{office.locality}</span>
+                <span class="block">{office.address}</span>
+                <a
+                  href={office.phoneHref}
+                  class="font-medium text-sage-200 transition-colors hover:text-gold-200"
+                >
+                  {office.phone}
                 </a>
               </li>
             ))
           }
+          <li>
+            <a
+              href={site.contact.emailHref}
+              class="break-all font-medium text-white transition-colors hover:text-gold-200"
+            >
+              {site.contact.email}
+            </a>
+          </li>
         </ul>
-      </nav>
-
-      <!-- Legal -->
-      <nav aria-label="Footer, legal">
-        <p class="mb-4 text-xs font-bold uppercase tracking-wider text-sage-400">Legal</p>
-        <ul class="space-y-2.5 text-[0.95rem]">
-          {
-            footerNav.legal.map((link) => (
-              <li>
-                <a href={link.href} class="transition-colors hover:text-white">
-                  {link.label}
-                </a>
-              </li>
-            ))
-          }
-        </ul>
-        <a
-          href="/book-consultation"
-          class="mt-6 inline-block rounded-full bg-pine-700 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-pine-600"
-        >
-          Book a Free Consultation
-        </a>
-      </nav>
+      </div>
     </div>
 
-    <!-- Regulatory strip -->
-    <div class="mt-14 border-t border-white/10 pt-8 text-[0.82rem] leading-relaxed text-sage-400">
-      <p>
-        {site.legalName} (ABN {site.regulatory.abn}). Credit services are provided by {
-          site.regulatory.creditRepName
-        }, Australian Credit Representative {site.regulatory.creditRepNumber}, under Australian
-        Credit Licence {site.regulatory.acl} ({site.regulatory.aclHolder}). Accounting and tax
-        services are provided by OneHQ Accounting.
-      </p>
-      <p class="mt-3">
-        The information on this website is general in nature and does not take your objectives,
-        financial situation or needs into account. Consider its appropriateness to your
-        circumstances before acting, and read our <a
-          href="/disclaimer"
-          class="underline underline-offset-2 hover:text-white">Disclaimer</a
-        >.
-      </p>
-      <p class="mt-4">
-        © {year}
-        {site.name}. All rights reserved.
-      </p>
+    <!-- Legal strip -->
+    <div
+      class="mt-16 flex flex-col gap-4 border-t border-white/12 pt-8 sm:flex-row sm:items-center sm:justify-between"
+    >
+      <nav aria-label="Legal" class="flex flex-wrap items-center gap-x-6 gap-y-2 text-[0.85rem]">
+        {
+          legal.map((link) => (
+            <a href={link.href} class="text-sage-300 transition-colors hover:text-white">
+              {link.label}
+            </a>
+          ))
+        }
+      </nav>
+      <p class="text-[0.82rem] text-sage-400">© {year} {site.name}. All rights reserved.</p>
     </div>
+
+    <p class="mt-6 max-w-4xl text-[0.78rem] leading-relaxed text-sage-400">
+      {site.legalName} (ABN {site.regulatory.abn}). Credit services are provided by {
+        site.regulatory.creditRepName
+      }, Australian Credit Representative {site.regulatory.creditRepNumber}, under Australian Credit
+      Licence {site.regulatory.acl} ({site.regulatory.aclHolder}). Accounting and tax services are
+      provided by OneHQ Accounting. Information here is general only and does not consider your
+      objectives, financial situation or needs.
+    </p>
   </div>
 </footer>

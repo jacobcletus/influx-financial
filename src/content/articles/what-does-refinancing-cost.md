@@ -1,5 +1,6 @@
 ---
 title: 'What does refinancing actually cost? The full list'
+seoTitle: 'What Does Refinancing Cost? | Influx Financial'
 description: 'Discharge fees, break costs, government charges and the loyalty-tax maths, every cost of switching home loans, and how to work out your break-even point.'
 publishDate: 2026-07-01
 reviewDate: 2026-07-01

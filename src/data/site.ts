@@ -29,25 +29,52 @@ export const site = {
     hours: null as string | null, // [OWNER TO CONFIRM: business hours for each office]
   },
 
-  /** Physical office locations. The first entry is the head office. */
+  /**
+   * Physical office locations. The first entry is the head office.
+   * `locality`/`region`/`postalCode` are the split-out address parts used
+   * by LocalBusiness schema; `address`/`suburb` remain for display. Each
+   * office's `areaServed` reflects the suburbs THAT office actually covers.
+   */
   offices: [
     {
+      id: 'mickleham',
       name: 'Mickleham (Head Office)',
       building: 'Waterman Merrifield',
       address: 'Level 3, 21 Cityside Drive',
       suburb: 'Mickleham VIC 3064',
+      locality: 'Mickleham',
+      region: 'VIC',
+      postalCode: '3064',
       phone: '(03) 8782 3777',
       phoneHref: 'tel:+61387823777',
       mapQuery: 'Waterman Merrifield, 21 Cityside Drive, Mickleham VIC 3064',
+      // Northern growth corridor — primary local-SEO target (mirrors serviceSuburbs).
+      areaServed: [
+        'Craigieburn',
+        'Mickleham',
+        'Kalkallo',
+        'Roxburgh Park',
+        'Greenvale',
+        'Donnybrook',
+        'Wollert',
+        'Beveridge',
+        'Mernda',
+      ],
     },
     {
+      id: 'croydon',
       name: 'Croydon',
       building: null as string | null,
       address: 'Level 1, 39-41 Hewish Road',
       suburb: 'Croydon VIC 3136',
+      locality: 'Croydon',
+      region: 'VIC',
+      postalCode: '3136',
       phone: '(03) 9056 3899',
       phoneHref: 'tel:+61390563899',
       mapQuery: '39-41 Hewish Road, Croydon VIC 3136',
+      // Outer-east — this office's own local catchment.
+      areaServed: ['Croydon', 'Ringwood', 'Mooroolbark', 'Kilsyth', 'Lilydale', 'Chirnside Park'],
     },
   ],
 
@@ -77,6 +104,45 @@ export const site = {
       label: 'clients supported',
       verified: true,
     },
+  ],
+
+  /**
+   * Awards & recognition. NOTE: "Finalist" = shortlisted, NOT won.
+   * Never describe as "winner" or "award-winning" unless a category is
+   * actually won. Badge images (if supplied) live in public/images/awards.
+   */
+  awards: [
+    {
+      name: 'AFG Broker Awards',
+      year: 2026,
+      result: 'Finalist',
+      category: 'Best New Mortgage Group',
+      recipient: 'Influx Financial',
+    },
+    {
+      name: 'AFG Broker Awards',
+      year: 2026,
+      result: 'Finalist',
+      category: 'Best New Broker',
+      recipient: 'Jose Poly',
+    },
+  ],
+
+  /**
+   * Northern-Melbourne suburbs actively targeted for local SEO, used as
+   * `areaServed` in schema. Head office (Mickleham) sits in this growth
+   * corridor, adjacent to Craigieburn.
+   */
+  serviceSuburbs: [
+    'Craigieburn',
+    'Mickleham',
+    'Kalkallo',
+    'Roxburgh Park',
+    'Greenvale',
+    'Donnybrook',
+    'Wollert',
+    'Beveridge',
+    'Mernda',
   ],
 
   /** Announcement bar, set `enabled: false` to hide site-wide. */

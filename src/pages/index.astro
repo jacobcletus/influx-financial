@@ -11,6 +11,7 @@ import ProcessSteps from '@/components/sections/ProcessSteps.astro';
 import TrustBar from '@/components/sections/TrustBar.astro';
 import ConsultationCTA from '@/components/sections/ConsultationCTA.astro';
 import FAQAccordion from '@/components/ui/FAQAccordion.astro';
+import AwardBadges from '@/components/ui/AwardBadges.astro';
 import { site } from '@/data/site';
 import { faqSchema } from '@/utils/schema';
 
@@ -90,21 +91,17 @@ const whyPoints = [
 ---
 
 <BaseLayout
-  title="Influx Financial, Mortgage Brokers & Accountants Melbourne"
+  title="Influx Financial | Mortgage Brokers & Accountants Melbourne"
   description="Melbourne mortgage broking, lending and accounting. Influx Financial compares home loans from a wide lender panel, first home buyers, refinancing, investors and business owners. Free consultation."
   schema={[faqSchema(brokerFaqs)]}
 >
   <!-- ============ HERO ============ -->
   <section class="bg-glow-dark on-dark relative overflow-hidden bg-pine-950">
     <div
-      class="container-site relative grid items-center gap-14 py-20 sm:py-24 lg:grid-cols-[1fr_0.95fr] lg:py-28"
+      class="container-site relative grid items-center gap-14 py-20 sm:py-24 lg:grid-cols-[1fr_1.05fr] lg:py-28"
     >
       <div>
-        <p
-          class="mb-7 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.07] px-4 py-1.5 text-[0.72rem] font-semibold uppercase tracking-[0.16em] text-mist-100"
-          data-reveal
-        >
-          <Icon name="key" size={14} class="text-gold-200" />
+        <p class="eyebrow eyebrow-rule mb-7 text-gold-200" data-reveal>
           {site.tagline.charAt(0).toUpperCase() + site.tagline.slice(1)}
         </p>
         <h1
@@ -150,10 +147,11 @@ const whyPoints = [
             {site.contact.phone}
           </a>
         </div>
+
         <ul
-          class="mt-10 flex max-w-lg flex-wrap gap-x-6 gap-y-2 border-t border-white/15 pt-6 text-[0.85rem] font-medium text-sage-200"
+          class="mt-8 flex max-w-lg flex-wrap gap-x-6 gap-y-2 border-t border-white/15 pt-6 text-[0.85rem] font-medium text-sage-200"
           data-reveal
-          style="--reveal-delay: 620ms"
+          style="--reveal-delay: 680ms"
         >
           <li class="flex items-center gap-1.5">
             <Icon name="check" size={14} class="text-gold-200" /> No cost to you for most home loans
@@ -167,55 +165,62 @@ const whyPoints = [
         </ul>
       </div>
 
-      <!-- Real team imagery, aligned, chips kept clear of the photos -->
+      <!-- Real team imagery — premium framed portraits with names -->
       <div
-        class="relative mx-auto hidden w-full max-w-xl sm:block lg:mr-0"
+        class="relative mx-auto hidden w-full max-w-2xl sm:block lg:mr-0"
         data-reveal
         style="--reveal-delay: 250ms"
       >
-        <div class="grid grid-cols-2 gap-5">
-          <figure class="overflow-hidden rounded-[1.35rem] bg-white shadow-card-hover">
+        <div class="grid grid-cols-2 gap-6">
+          <figure
+            class="group overflow-hidden rounded-[1.5rem] bg-white shadow-card-hover ring-1 ring-white/10"
+          >
             <img
-              src="/images/team/jose-poly-studio.jpg"
+              src="/images/team/jose-poly-studio.webp"
               alt="Jose Poly, Director and Mortgage Broker at Influx Financial"
-              width="400"
-              height="400"
-              class="aspect-square w-full object-cover"
+              width="900"
+              height="900"
+              class="aspect-square w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
               fetchpriority="high"
             />
-            <figcaption class="px-4 py-3.5">
+            <figcaption class="px-4 py-4">
               <p class="text-sm font-bold text-ink-950">Jose Poly</p>
-              <p
-                class="mt-0.5 text-[0.66rem] font-semibold uppercase tracking-[0.08em] text-pine-700"
-              >
-                Director & Mortgage Broker
+              <p class="mt-0.5 text-[0.66rem] font-semibold uppercase tracking-[0.08em] text-pine-700">
+                Director &amp; Mortgage Broker
               </p>
             </figcaption>
           </figure>
-          <figure class="overflow-hidden rounded-[1.35rem] bg-white shadow-card-hover">
+          <figure
+            class="group overflow-hidden rounded-[1.5rem] bg-white shadow-card-hover ring-1 ring-white/10"
+          >
             <img
-              src="/images/team/joe-anto-studio.jpg"
+              src="/images/team/joe-anto-studio.webp"
               alt="Joe Anto, Director of Influx Financial and OneHQ Accounting"
-              width="400"
-              height="400"
-              class="aspect-square w-full object-cover"
+              width="900"
+              height="900"
+              class="aspect-square w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
               fetchpriority="high"
             />
-            <figcaption class="px-4 py-3.5">
+            <figcaption class="px-4 py-4">
               <p class="text-sm font-bold text-ink-950">Joe Anto</p>
-              <p
-                class="mt-0.5 text-[0.66rem] font-semibold uppercase tracking-[0.08em] text-pine-700"
-              >
+              <p class="mt-0.5 text-[0.66rem] font-semibold uppercase tracking-[0.08em] text-pine-700">
                 Director, Accounting
               </p>
             </figcaption>
           </figure>
         </div>
+        <!-- AFG Broker Awards 2026 finalist seals, under the photos -->
+        <AwardBadges
+          imgClass="h-16 w-16 ring-1 ring-white/15 sm:h-20 sm:w-20"
+          gap="gap-4"
+          class="mt-6 justify-center"
+          data-reveal
+          style="--reveal-delay: 400ms"
+        />
+
         <div class="mt-5 flex flex-wrap items-center justify-center gap-3">
           <div class="flex items-center gap-2.5 rounded-full bg-white py-2 pl-3 pr-5 shadow-card">
-            <span
-              class="flex h-7 w-7 items-center justify-center rounded-full bg-pine-800 text-white"
-            >
+            <span class="flex h-7 w-7 items-center justify-center rounded-full bg-pine-800 text-white">
               <Icon name="layers" size={14} />
             </span>
             <span class="whitespace-nowrap text-[0.8rem] font-bold text-ink-950">
@@ -223,9 +228,7 @@ const whyPoints = [
             </span>
           </div>
           <div class="flex items-center gap-2.5 rounded-full bg-white py-2 pl-3 pr-5 shadow-card">
-            <span
-              class="flex h-7 w-7 items-center justify-center rounded-full bg-gold-400 text-pine-950"
-            >
+            <span class="flex h-7 w-7 items-center justify-center rounded-full bg-gold-400 text-pine-950">
               <Icon name="users" size={14} />
             </span>
             <span class="whitespace-nowrap text-[0.8rem] font-semibold text-ink-900">
@@ -245,7 +248,7 @@ const whyPoints = [
     <div class="container-site py-24 sm:py-28">
       <figure class="relative overflow-hidden rounded-[1.75rem] shadow-card-hover" data-reveal>
         <img
-          src="/images/proper-house.jpg"
+          src="/images/proper-house.webp"
           alt="Modern two-storey home with glass balustrades and landscaped entry"
           width="1600"
           height="1000"
@@ -337,13 +340,9 @@ const whyPoints = [
 
   <!-- ============ FIRST HOME BUYER FEATURE ============ -->
   <section class="bg-glow-dark on-dark bg-pine-950">
-    <div class="container-site grid items-center gap-12 py-24 sm:py-28 lg:grid-cols-2">
+    <div class="container-site grid items-start gap-12 py-24 sm:py-28 lg:grid-cols-2">
       <div data-reveal>
-        <p
-          class="eyebrow mb-5 rounded-full border border-white/15 bg-white/[0.07] px-3.5 py-1.5 text-gold-200"
-        >
-          Making first homes happen
-        </p>
+        <p class="eyebrow eyebrow-rule mb-5 text-gold-200">Making first homes happen</p>
         <h2 class="text-[2.1rem] font-extrabold text-white sm:text-[2.6rem] lg:text-[2.9rem]">
           First home? We've made this trip before.
         </h2>

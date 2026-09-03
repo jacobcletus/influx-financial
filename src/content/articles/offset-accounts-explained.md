@@ -1,5 +1,6 @@
 ---
 title: 'Offset accounts explained: how they work and when they beat redraw'
+seoTitle: 'Offset Accounts Explained | Influx Financial'
 description: 'An offset account can quietly save years of interest, if you use it right. How offsets work, offset vs redraw, and who benefits most.'
 publishDate: 2026-07-01
 reviewDate: 2026-07-01

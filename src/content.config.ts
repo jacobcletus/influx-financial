@@ -78,6 +78,8 @@ const articles = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/articles' }),
   schema: z.object({
     title: z.string(),
+    /** Optional shorter <title> tag (kept under ~60 chars); falls back to `title` + brand suffix. */
+    seoTitle: z.string().optional(),
     description: z.string().max(170),
     publishDate: z.coerce.date(),
     reviewDate: z.coerce.date(),
@@ -92,6 +94,8 @@ const articles = defineCollection({
     ]),
     tags: z.array(z.string()).default([]),
     relatedServices: z.array(z.string()).default([]),
+    /** Optional Q&A. Rendered as a visible accordion + FAQPage schema. */
+    faqs: z.array(faqSchema).default([]),
     draft: z.boolean().default(false),
   }),
 });
@@ -100,6 +104,8 @@ const caseStudies = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/case-studies' }),
   schema: z.object({
     title: z.string(),
+    /** Optional shorter <title> tag (kept under ~60 chars); falls back to `title` + brand suffix. */
+    seoTitle: z.string().optional(),
     description: z.string().max(170),
     clientType: z.string(),
     service: z.string(),

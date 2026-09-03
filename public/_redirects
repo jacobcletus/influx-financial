@@ -29,3 +29,16 @@
 
 # Real Estate service removed pending owner confirmation
 /services/real-estate /services             301
+
+# Convenience alias — some crawlers probe /sitemap.xml by default
+/sitemap.xml            /sitemap-index.xml  301
+
+# Old legal-page URLs (WordPress named them differently)
+/terms-and-conditions/  /terms            301
+/terms-and-conditions   /terms            301
+/terms-of-service/      /terms            301
+/terms-of-service       /terms            301
+/terms-of-use/          /terms            301
+/terms-of-use           /terms            301
+/privacy/               /privacy-policy   301
+/privacy                /privacy-policy   301

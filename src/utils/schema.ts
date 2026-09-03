@@ -23,11 +23,13 @@ export function organizationSchema(): JsonLd {
     telephone: '+61 488 705 689',
     email: site.contact.email,
     areaServed: [
+      ...site.serviceSuburbs.map((name) => ({ '@type': 'City', name })),
       { '@type': 'City', name: 'Melbourne' },
       { '@type': 'State', name: 'Victoria' },
       { '@type': 'Country', name: 'Australia' },
     ],
-    sameAs: [site.social.facebook].filter(Boolean),
+    award: site.awards.map((a) => `${a.result} — ${a.name} ${a.year}: ${a.category}`),
+    sameAs: [site.social.facebook, site.social.instagram].filter(Boolean),
     address: {
       '@type': 'PostalAddress',
       streetAddress: `${site.offices[0].building}, ${site.offices[0].address}`,
@@ -37,6 +39,46 @@ export function organizationSchema(): JsonLd {
       addressCountry: 'AU',
     },
   };
+}
+
+export function websiteSchema(): JsonLd {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    '@id': `${site.url}/#website`,
+    url: site.url,
+    name: site.name,
+    inLanguage: 'en-AU',
+    publisher: { '@id': ORG_ID },
+  };
+}
+
+/**
+ * One FinancialService (LocalBusiness) node per physical office, each with
+ * its own NAP + local `areaServed`, linked to the parent Organization.
+ * This is what powers the Google local pack for both locations.
+ */
+export function localBusinessSchemas(): JsonLd[] {
+  return site.offices.map((office) => ({
+    '@context': 'https://schema.org',
+    '@type': 'FinancialService',
+    '@id': `${site.url}/#office-${office.id}`,
+    name: `${site.name} — ${office.locality}`,
+    parentOrganization: { '@id': ORG_ID },
+    url: site.url,
+    image: `${site.url}/images/og/og-default.png`,
+    telephone: office.phoneHref.replace('tel:', ''),
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: office.building ? `${office.building}, ${office.address}` : office.address,
+      addressLocality: office.locality,
+      addressRegion: office.region,
+      postalCode: office.postalCode,
+      addressCountry: 'AU',
+    },
+    areaServed: office.areaServed.map((name) => ({ '@type': 'City', name })),
+    hasMap: `https://maps.google.com/maps?q=${encodeURIComponent(office.mapQuery)}`,
+  }));
 }
 
 export function serviceSchema(input: { name: string; description: string; url: string }): JsonLd {
@@ -83,8 +125,10 @@ export function personSchema(input: {
   image: string;
   url: string;
   description: string;
+  /** e.g. "Finalist — AFG Broker Awards 2026: Best New Broker". Omitted if absent. */
+  award?: string | string[];
 }): JsonLd {
-  return {
+  const schema: JsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Person',
     name: input.name,
@@ -94,6 +138,8 @@ export function personSchema(input: {
     description: input.description,
     worksFor: { '@id': ORG_ID },
   };
+  if (input.award) schema.award = input.award;
+  return schema;
 }
 
 export function articleSchema(input: {

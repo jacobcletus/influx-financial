@@ -10,19 +10,25 @@ import { personSchema } from '@/utils/schema';
 const team = (await getCollection('team')).sort((a, b) => a.data.order - b.data.order);
 const stripTodo = (s: string) => s.replace(/\s*\[OWNER TO CONFIRM:[^\]]*\]\s*/g, ' ').trim();
 
-const schemas = team.map((m) =>
-  personSchema({
+const schemas = team.map((m) => {
+  // Attach any award whose recipient matches this person (e.g. Jose's
+  // individual AFG finalist nomination). Omitted when there's no match.
+  const memberAwards = site.awards
+    .filter((a) => a.recipient === m.data.name)
+    .map((a) => `${a.result} — ${a.name} ${a.year}: ${a.category}`);
+  return personSchema({
     name: m.data.name,
     role: m.data.role,
     image: m.data.image,
     url: `${site.url}/team`,
     description: stripTodo(m.data.bio),
-  })
-);
+    award: memberAwards.length ? memberAwards : undefined,
+  });
+});
 ---
 
 <BaseLayout
-  title="Our Team, Influx Financial Melbourne"
+  title="Our Team | Influx Financial Melbourne"
   description="Meet the directors of Influx Financial: Jose Poly (mortgage broking) and Joe Anto (accounting, OneHQ). The people who actually manage your file."
   schema={schemas}
 >

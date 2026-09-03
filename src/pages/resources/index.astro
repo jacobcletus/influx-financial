@@ -6,6 +6,7 @@ import Button from '@/components/ui/Button.astro';
 import Icon from '@/components/ui/Icon.astro';
 import ArticleCard from '@/components/ui/ArticleCard.astro';
 import ConsultationCTA from '@/components/sections/ConsultationCTA.astro';
+import { site } from '@/data/site';
 import { formatDate } from '@/utils/format';
 
 const articles = (await getCollection('articles', ({ data }) => !data.draft)).sort(
@@ -17,7 +18,7 @@ const categories = [...new Set(articles.map((a) => a.data.category))];
 ---
 
 <BaseLayout
-  title="Resources & Guides, Home Loans, Refinancing, Tax | Influx Financial"
+  title="Home Loan & Mortgage Guides | Influx Financial"
   description="Plain-English guides on deposits, pre-approval, fixed vs variable rates, refinancing costs, offset accounts and property tax, written and reviewed by the Influx team."
 >
   <!-- ============ HERO ============ -->
@@ -157,6 +158,43 @@ const categories = [...new Set(articles.map((a) => a.data.category))];
           Ask a question
           <Icon name="arrow-right" size={15} />
         </Button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ LOCAL / AREAS SERVED ============ -->
+  <section class="bg-glow-dark on-dark bg-pine-950">
+    <div class="container-site py-20 sm:py-24">
+      <div class="grid gap-12 lg:grid-cols-2 lg:items-center">
+        <div data-reveal>
+          <p class="eyebrow eyebrow-rule mb-5 text-gold-200">Local to Melbourne's north</p>
+          <h2
+            class="text-[1.9rem] font-extrabold uppercase leading-[1.05] tracking-[-0.015em] text-white sm:text-[2.4rem]"
+          >
+            A broker who knows your suburb
+          </h2>
+          <p class="mt-5 max-w-xl text-lg leading-relaxed text-sage-200">
+            Our head office is in Mickleham, in the heart of Melbourne's northern growth corridor.
+            If you're buying, building or refinancing in Craigieburn or the suburbs around it, we
+            know the local market, the house-and-land packages, and the lenders that work for new
+            estates.
+          </p>
+          <div class="mt-8">
+            <Button href="/book-consultation" variant="gold">
+              Talk to a local broker
+              <Icon name="arrow-right" size={16} />
+            </Button>
+          </div>
+        </div>
+        <ul class="grid grid-cols-2 gap-3 sm:grid-cols-3" data-reveal style="--reveal-delay: 150ms">
+          {
+            site.serviceSuburbs.map((suburb) => (
+              <li class="rounded-xl border border-white/10 bg-white/[0.05] px-4 py-3 text-center text-sm font-semibold text-mist-100">
+                {suburb}
+              </li>
+            ))
+          }
+        </ul>
       </div>
     </div>
   </section>

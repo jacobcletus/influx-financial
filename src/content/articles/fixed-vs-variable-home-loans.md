@@ -1,5 +1,6 @@
 ---
 title: 'Fixed vs variable home loans: how to actually choose'
+seoTitle: 'Fixed vs Variable Home Loans | Influx Financial'
 description: 'Fixed, variable or split? The right answer depends on your plans, not on predicting interest rates. A plain-English guide to the trade-offs.'
 publishDate: 2026-07-01
 reviewDate: 2026-07-01

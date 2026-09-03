@@ -1,5 +1,6 @@
 ---
 title: 'Tax time for property owners: what your accountant wishes you tracked'
+seoTitle: 'Tax Time for Property Owners | Influx Financial'
 description: 'Rental income, deductions, depreciation and loan interest, how property owners can keep tax time painless and their records lender-ready.'
 publishDate: 2026-07-01
 reviewDate: 2026-07-01

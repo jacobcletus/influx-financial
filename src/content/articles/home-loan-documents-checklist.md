@@ -1,5 +1,6 @@
 ---
 title: 'The home loan documents checklist (and how to avoid the paperwork loop)'
+seoTitle: 'Home Loan Documents Checklist | Influx Financial'
 description: 'Exactly what lenders ask for, ID, income, savings and liabilities, for employees and the self-employed, plus the mistakes that stall applications.'
 publishDate: 2026-07-01
 reviewDate: 2026-07-01

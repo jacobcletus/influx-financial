@@ -7,11 +7,28 @@
  */
 import StatCounter from '@/components/animations/StatCounter';
 import DuoStat from '@/components/animations/DuoStat';
+import AwardBadges from '@/components/ui/AwardBadges.astro';
 import { site } from '@/data/site';
+
+const finalist = site.awards.filter((a) => a.result === 'Finalist');
 ---
 
 <section class="border-b border-line-100 bg-white" aria-label="About Influx at a glance">
   <div class="container-site py-14">
+    {
+      finalist.length > 0 && (
+        <div
+          class="mb-12 flex flex-col items-center justify-center gap-4 sm:flex-row"
+          data-reveal
+        >
+          <AwardBadges imgClass="h-14 w-14 sm:h-16 sm:w-16" gap="gap-3" />
+          <p class="text-center text-sm leading-snug text-ink-700 sm:text-left">
+            <span class="block font-bold text-ink-950">Finalist — AFG Broker Awards 2026</span>
+            <span class="text-ink-500">Best New Broker &amp; Best New Mortgage Group</span>
+          </p>
+        </div>
+      )
+    }
     <div
       class="grid grid-cols-1 items-center gap-10 divide-line-100 sm:grid-cols-3 sm:gap-0 sm:divide-x"
     >

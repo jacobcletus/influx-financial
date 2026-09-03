@@ -7,7 +7,7 @@ import Footer from '@/components/layout/Footer.astro';
 import Header from '@/components/navigation/Header';
 import { site } from '@/data/site';
 import { ctaLink, primaryNav, servicesMenu } from '@/data/navigation';
-import { organizationSchema } from '@/utils/schema';
+import { organizationSchema, websiteSchema, localBusinessSchemas } from '@/utils/schema';
 
 interface Props {
   title: string;
@@ -41,7 +41,7 @@ const path = Astro.url.pathname;
       noindex={noindex}
     />
     <link rel="sitemap" href="/sitemap-index.xml" />
-    <StructuredData schema={[organizationSchema(), ...schema]} />
+    <StructuredData schema={[organizationSchema(), websiteSchema(), ...localBusinessSchemas(), ...schema]} />
     <script is:inline>
       // Mark JS availability so scroll-reveal styles only apply when
       // the observer below will actually run.

@@ -1,5 +1,6 @@
 ---
 title: 'Home loan pre-approval: what it is, and why serious buyers get it first'
+seoTitle: 'Home Loan Pre-Approval Explained | Influx Financial'
 description: 'Pre-approval tells you your real budget and lets you act fast. What it covers, what it doesn''t guarantee, and how long it lasts.'
 publishDate: 2026-07-01
 reviewDate: 2026-07-01

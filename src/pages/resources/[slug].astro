@@ -4,8 +4,9 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumbs from '@/components/navigation/Breadcrumbs.astro';
 import ArticleCard from '@/components/ui/ArticleCard.astro';
 import ConsultationCTA from '@/components/sections/ConsultationCTA.astro';
+import FAQAccordion from '@/components/ui/FAQAccordion.astro';
 import { site } from '@/data/site';
-import { articleSchema } from '@/utils/schema';
+import { articleSchema, faqSchema } from '@/utils/schema';
 import { formatDate } from '@/utils/format';
 
 export async function getStaticPaths() {
@@ -30,23 +31,28 @@ const related = (
   .slice(0, 3);
 
 const pageUrl = `${site.url}/resources/${article.id}`;
+
+const pageSchemas: Array<Record<string, unknown>> = [
+  articleSchema({
+    title: article.data.title,
+    description: article.data.description,
+    url: pageUrl,
+    publishDate: article.data.publishDate,
+    reviewDate: article.data.reviewDate,
+    authorName: author?.data.name ?? site.name,
+    authorUrl: `${site.url}/team`,
+  }),
+];
+if (article.data.faqs.length > 0) {
+  pageSchemas.push(faqSchema(article.data.faqs));
+}
 ---
 
 <BaseLayout
-  title={`${article.data.title} | Influx Financial`}
+  title={article.data.seoTitle ?? `${article.data.title} | Influx Financial`}
   description={article.data.description}
   ogType="article"
-  schema={[
-    articleSchema({
-      title: article.data.title,
-      description: article.data.description,
-      url: pageUrl,
-      publishDate: article.data.publishDate,
-      reviewDate: article.data.reviewDate,
-      authorName: author?.data.name ?? site.name,
-      authorUrl: `${site.url}/team`,
-    }),
-  ]}
+  schema={pageSchemas}
 >
   <article>
     <header class="bg-mist-50 bg-texture">
@@ -107,9 +113,23 @@ const pageUrl = `${site.url}/resources/${article.id}`;
         [&_h3]:mb-3 [&_h3]:mt-8 [&_h3]:text-xl [&_h3]:font-bold
         [&_li]:mb-2 [&_ol]:mb-5 [&_ol]:list-decimal [&_ol]:pl-6
         [&_p]:mb-5 [&_strong]:font-bold [&_strong]:text-ink-900
-        [&_ul]:mb-5 [&_ul]:list-disc [&_ul]:pl-6"
+        [&_ul]:mb-5 [&_ul]:list-disc [&_ul]:pl-6
+        [&_table]:my-8 [&_table]:w-full [&_table]:overflow-hidden [&_table]:rounded-xl [&_table]:border [&_table]:border-line-100 [&_table]:border-separate [&_table]:[border-spacing:0] [&_table]:text-[0.92rem]
+        [&_th]:bg-pine-950 [&_th]:px-3.5 [&_th]:py-3 [&_th]:text-left [&_th]:font-bold [&_th]:text-white
+        [&_td]:border-t [&_td]:border-line-100 [&_td]:px-3.5 [&_td]:py-3
+        [&_tbody_tr:nth-child(even)]:bg-mist-50
+        [&_td:first-child]:font-semibold [&_td:first-child]:text-ink-900"
       >
         <Content />
+
+        {
+          article.data.faqs.length > 0 && (
+            <>
+              <h2>Common questions</h2>
+              <FAQAccordion items={article.data.faqs} class="mt-6" />
+            </>
+          )
+        }
 
         {
           author && (

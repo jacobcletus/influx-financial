@@ -17,7 +17,7 @@ const { Content } = await render(cs);
 ---
 
 <BaseLayout
-  title={`${cs.data.title}, Case Study | Influx Financial`}
+  title={cs.data.seoTitle ?? `${cs.data.title}, Case Study | Influx Financial`}
   description={cs.data.description}
 >
   <article>
