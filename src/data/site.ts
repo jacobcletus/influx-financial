@@ -31,6 +31,7 @@ export const site = {
 
   /**
    * Physical office locations. The first entry is the head office.
+   * (Croydon office removed Oct 2026 at the owner's request.)
    * `locality`/`region`/`postalCode` are the split-out address parts used
    * by LocalBusiness schema; `address`/`suburb` remain for display. Each
    * office's `areaServed` reflects the suburbs THAT office actually covers.
@@ -38,7 +39,7 @@ export const site = {
   offices: [
     {
       id: 'mickleham',
-      name: 'Mickleham (Head Office)',
+      name: 'Mickleham',
       building: null as string | null,
       address: 'Suite 195, Level 3/21 Cityside Drive',
       suburb: 'Mickleham VIC 3064',
@@ -60,21 +61,6 @@ export const site = {
         'Beveridge',
         'Mernda',
       ],
-    },
-    {
-      id: 'croydon',
-      name: 'Croydon',
-      building: null as string | null,
-      address: 'Level 1, 39-41 Hewish Road',
-      suburb: 'Croydon VIC 3136',
-      locality: 'Croydon',
-      region: 'VIC',
-      postalCode: '3136',
-      phone: '(03) 9056 3899',
-      phoneHref: 'tel:+61390563899',
-      mapQuery: '39-41 Hewish Road, Croydon VIC 3136',
-      // Outer-east — this office's own local catchment.
-      areaServed: ['Croydon', 'Ringwood', 'Mooroolbark', 'Kilsyth', 'Lilydale', 'Chirnside Park'],
     },
   ],
 

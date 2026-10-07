@@ -105,7 +105,9 @@ const finalist = site.awards.filter((a) => a.result === 'Finalist');
 
       <!-- Offices + contact -->
       <div>
-        <p class="eyebrow eyebrow-rule mb-5 text-sage-400">Offices</p>
+        <p class="eyebrow eyebrow-rule mb-5 text-sage-400">
+          {site.offices.length > 1 ? 'Offices' : 'Office'}
+        </p>
         <ul class="space-y-4 text-[0.9rem] text-sage-300">
           {
             site.offices.map((office) => (

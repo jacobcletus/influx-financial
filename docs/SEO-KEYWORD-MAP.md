@@ -70,7 +70,7 @@ same query.
 |---|---|---|---|
 | `/about` | influx financial mortgage broker | melbourne mortgage broker and accountant, our story | Branded / Informational |
 | `/team` | — (branded/E-E-A-T page) | jose poly mortgage broker, joe anto accountant | N/A — supports author trust signals, not a keyword target |
-| `/contact` | mortgage broker mickleham | mortgage broker croydon, influx financial contact | Local / Transactional |
+| `/contact` | mortgage broker mickleham | mortgage broker craigieburn, influx financial contact | Local / Transactional |
 | `/case-studies` | mortgage broker client stories | melbourne mortgage broker reviews | Informational — thin until real case studies are approved and published; do not target competitively until then |
 
 ### Legal & utility (no keyword target — indexed for trust/compliance, not rankings)

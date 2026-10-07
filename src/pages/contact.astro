@@ -10,7 +10,7 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY as string | u
 
 <BaseLayout
   title="Contact Influx Financial | Melbourne Mortgage Brokers"
-  description="Call 0488 705 689, email jose@influxfinancial.com.au, or visit our Mickleham or Croydon offices. Phone and video appointments available Australia-wide."
+  description="Call 0488 705 689, email jose@influxfinancial.com.au, or visit our Mickleham office. Phone and video appointments available Australia-wide."
 >
   <!-- ============ HERO WITH FORM ============ -->
   <section class="bg-glow-dark on-dark bg-pine-950">
@@ -64,7 +64,7 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY as string | u
             {site.contact.email}
           </a>
           <span class="flex items-center gap-2">
-            <Icon name="map" size={15} class="text-gold-200" /> Mickleham &amp; Croydon offices
+            <Icon name="map" size={15} class="text-gold-200" /> Mickleham office
           </span>
         </p>
       </div>
@@ -91,15 +91,17 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY as string | u
   <section class="bg-texture bg-mist-50">
     <div class="container-site py-24 sm:py-28">
       <div class="max-w-3xl" data-reveal>
-        <p class="eyebrow eyebrow-rule mb-4 text-pine-700">Our offices</p>
-        <h2 class="text-[2rem] font-extrabold sm:text-[2.5rem]">Two Melbourne offices, one team</h2>
+        <p class="eyebrow eyebrow-rule mb-4 text-pine-700">
+          {site.offices.length > 1 ? 'Our offices' : 'Our office'}
+        </p>
+        <h2 class="text-[2rem] font-extrabold sm:text-[2.5rem]">Visit us in Mickleham</h2>
         <p class="mt-5 text-lg leading-relaxed text-ink-600">
-          Drop in to Mickleham or Croydon, or book a phone or video appointment from anywhere in
+          Drop in to our Mickleham office, or book a phone or video appointment from anywhere in
           Australia.
         </p>
       </div>
 
-      <div class="mt-12 grid gap-6 lg:grid-cols-2">
+      <div class={`mt-12 grid gap-6 ${site.offices.length > 1 ? 'lg:grid-cols-2' : 'max-w-3xl'}`}>
         {
           site.offices.map((office, i) => (
             <div
@@ -116,9 +118,11 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY as string | u
               />
               <div class="p-7 sm:p-8">
                 <div class="flex items-center gap-3">
-                  <span class="font-display text-sm font-bold tracking-[0.12em] text-sage-400">
-                    0{i + 1}
-                  </span>
+                  {site.offices.length > 1 && (
+                    <span class="font-display text-sm font-bold tracking-[0.12em] text-sage-400">
+                      0{i + 1}
+                    </span>
+                  )}
                   <h3 class="text-xl font-extrabold text-ink-950">{office.name}</h3>
                 </div>
                 <address class="mt-4 space-y-3 not-italic">
@@ -169,7 +173,9 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY as string | u
             <Icon name="phone" size={22} />
           </span>
           <span>
-            <span class="block text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-ink-500">
+            <span
+              class="block text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-ink-500"
+            >
               Call us
             </span>
             <span class="font-display mt-0.5 block text-lg font-extrabold text-ink-950">
@@ -189,7 +195,9 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY as string | u
             <Icon name="mail" size={22} />
           </span>
           <span class="min-w-0">
-            <span class="block text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-ink-500">
+            <span
+              class="block text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-ink-500"
+            >
               Email us
             </span>
             <span class="mt-0.5 block break-all text-[0.95rem] font-bold text-ink-950">
