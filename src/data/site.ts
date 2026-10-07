@@ -24,7 +24,7 @@ export const site = {
     email: 'jose@influxfinancial.com.au',
     emailHref: 'mailto:jose@influxfinancial.com.au',
     // Head-office address, used for footer NAP and LocalBusiness schema.
-    address: 'Level 3, 21 Cityside Drive, Mickleham VIC 3064',
+    address: 'Suite 195, Level 3/21 Cityside Drive, Mickleham VIC 3064',
     serviceArea: 'Melbourne and across Victoria, with remote appointments Australia-wide',
     hours: null as string | null, // [OWNER TO CONFIRM: business hours for each office]
   },
@@ -39,15 +39,15 @@ export const site = {
     {
       id: 'mickleham',
       name: 'Mickleham (Head Office)',
-      building: 'Waterman Merrifield',
-      address: 'Level 3, 21 Cityside Drive',
+      building: null as string | null,
+      address: 'Suite 195, Level 3/21 Cityside Drive',
       suburb: 'Mickleham VIC 3064',
       locality: 'Mickleham',
       region: 'VIC',
       postalCode: '3064',
-      phone: '(03) 8782 3777',
-      phoneHref: 'tel:+61387823777',
-      mapQuery: 'Waterman Merrifield, 21 Cityside Drive, Mickleham VIC 3064',
+      phone: '03 7047 9370',
+      phoneHref: 'tel:+61370479370',
+      mapQuery: 'Suite 195, Level 3/21 Cityside Drive, Mickleham VIC 3064',
       // Northern growth corridor — primary local-SEO target (mirrors serviceSuburbs).
       areaServed: [
         'Craigieburn',

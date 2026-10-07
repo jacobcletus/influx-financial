@@ -32,7 +32,9 @@ export function organizationSchema(): JsonLd {
     sameAs: [site.social.facebook, site.social.instagram].filter(Boolean),
     address: {
       '@type': 'PostalAddress',
-      streetAddress: `${site.offices[0].building}, ${site.offices[0].address}`,
+      streetAddress: site.offices[0].building
+        ? `${site.offices[0].building}, ${site.offices[0].address}`
+        : site.offices[0].address,
       addressLocality: 'Mickleham',
       addressRegion: 'VIC',
       postalCode: '3064',
